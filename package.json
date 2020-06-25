@@ -27,7 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-scrollable-anchor": "^0.6.1",
-    "react-typing-animation": "^1.6.2"
+    "vendor-copy": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
