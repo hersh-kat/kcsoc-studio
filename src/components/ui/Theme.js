@@ -4,6 +4,7 @@ const darkNavyBlue = "#0e141b";
 const lightBlue = "#70edff";
 const lightPink = "#fca2ff";
 const white = "#fff";
+const lightNavyBlue = "#2a3a4d";
 
 export default createMuiTheme({
   palette: {
@@ -19,12 +20,13 @@ export default createMuiTheme({
     },
     text: {
       primary: white,
+      secondary: "rgba(255, 255, 255, 0.74)",
     },
     action: {
       hover: lightBlue,
     },
     background: {
-      paper: darkNavyBlue,
+      paper: lightNavyBlue,
       default: darkNavyBlue,
     },
   },

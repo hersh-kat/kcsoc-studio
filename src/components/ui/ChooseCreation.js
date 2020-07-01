@@ -1,9 +1,10 @@
 import React from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
-import ScrollableAnchor from "react-scrollable-anchor";
+import { useTheme } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   pinkButton: {
@@ -25,31 +26,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChooseCreation() {
   const styles = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <ScrollableAnchor id="choose-creation">
+    <Grid
+      container
+      direction="column"
+      style={{
+        paddingTop: "200px",
+        paddingBottom: "200px",
+        minHeight: "100vh",
+      }}
+      spacing={5}
+      justify="center"
+    >
+      <Grid item>
+        <Typography variant="h2">Choose your creation:</Typography>
+      </Grid>
       <Grid
         container
-        direction="column"
-        style={{
-          paddingTop: "200px",
-          paddingBottom: "200px",
-          minHeight: "100vh",
-        }}
-        spacing={5}
-        justify="center"
+        item
+        direction={matches ? "column" : "row"}
+        justify="space-evenly"
+        alignItems="center"
+        spacing={matches ? 5 : 0}
       >
         <Grid item>
-          <Typography variant="h2">Choose your creation:</Typography>
-        </Grid>
-        <Grid
-          container
-          item
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-        >
-          <Grid item>
+          <Link to="/create/poster" style={{ textDecoration: "none" }}>
             <Button className={styles.blueButton} variant="outlined">
               <Grid item container direction="column">
                 <Grid item>
@@ -62,21 +66,21 @@ export default function ChooseCreation() {
                 </Grid>
               </Grid>
             </Button>
-          </Grid>
-          <Grid item>
-            <Button variant="outlined" className={styles.pinkButton}>
-              <Grid item container direction="column">
-                <Grid item>
-                  <MovieCreationOutlinedIcon fontSize="large" />
-                </Grid>
-                <Typography style={{ fontWeight: 700 }}>
-                  Create Trailer
-                </Typography>
+          </Link>
+        </Grid>
+        <Grid item>
+          <Button variant="outlined" className={styles.pinkButton}>
+            <Grid item container direction="column">
+              <Grid item>
+                <MovieCreationOutlinedIcon fontSize="large" />
               </Grid>
-            </Button>
-          </Grid>
+              <Typography style={{ fontWeight: 700 }}>
+                Create Trailer
+              </Typography>
+            </Grid>
+          </Button>
         </Grid>
       </Grid>
-    </ScrollableAnchor>
+    </Grid>
   );
 }
