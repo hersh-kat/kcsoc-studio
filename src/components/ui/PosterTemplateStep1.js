@@ -111,7 +111,7 @@ async function getPostersFromDropbox(path) {
   return Promise.all(posters);
 }
 
-export default function PosterStep1({ currentStep, setState, setStep }) {
+export default function PosterStep1({ currentStep, setURL, setStep }) {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -126,18 +126,11 @@ export default function PosterStep1({ currentStep, setState, setStep }) {
   useEffect(() => {
     getPostersFromAllFolders().then((results) => setFiles(results));
   }, []);
+
+  if (currentStep !== 1) return null;
+
   return (
-    <Grid
-      container
-      direction="column"
-      spacing={4}
-      style={{
-        paddingTop: "200px",
-        paddingBottom: "200px",
-        minHeight: "100vh",
-      }}
-      justify="center"
-    >
+    <Grid container direction="column" spacing={4} justify="center">
       <Grid item>
         <Typography variant="h2">1. Choose your event</Typography>
       </Grid>
@@ -168,7 +161,7 @@ export default function PosterStep1({ currentStep, setState, setStep }) {
                 src={imageSrc}
                 title={name}
                 url={url}
-                setState={setState}
+                setURL={setURL}
                 setStep={setStep}
               />
             </Grid>

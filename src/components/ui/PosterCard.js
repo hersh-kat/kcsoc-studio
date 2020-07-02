@@ -30,14 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PosterCard({
-  src,
-  title,
-  url,
-  currentStep,
-  setState,
-  setStep,
-}) {
+export default function PosterCard({ src, title, url, setURL, setStep }) {
   const classes = useStyles();
 
   return (
@@ -47,7 +40,7 @@ export default function PosterCard({
         component="img"
         src={src}
         onClick={() => {
-          setState(url);
+          setURL(url);
           setStep();
         }}
       />
