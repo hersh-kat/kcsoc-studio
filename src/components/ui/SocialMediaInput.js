@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
@@ -11,19 +11,25 @@ export default function PosterTemplateSocialMedia({
   setStep,
   facebookHandle,
   instaHandle,
+  setInstagramInputError,
+  instagramInputError,
+  setFacebookInputError,
+  facebookInputError,
 }) {
   if (currentStep != 2) return null;
 
   return (
-    <Grid container direction="column" spacing={4} justify="center">
+    <Grid item container direction="column" spacing={4} justify="center">
       <Grid item>
         <Typography variant="h2">
           {" "}
-          2. Enter your KCSOC's social media tags
+          {currentStep}. Enter your KCSOC's social media tags
         </Typography>
       </Grid>
       <Grid item>
         <TextField
+          error={facebookInputError}
+          helperText={facebookInputError ? "Please fill this in." : ""}
           color="secondary"
           id="facebook-handle"
           label="Facebook Handle"
@@ -31,14 +37,22 @@ export default function PosterTemplateSocialMedia({
           value={facebookHandle}
           onChange={(event) => {
             setFacebookHandle(event.target.value);
+            setFacebookInputError(false);
           }}
           onKeyDown={(event) => {
-            if (event.keyCode == 13) setStep(currentStep + 1);
+            if (event.keyCode == 13) {
+              if (facebookHandle.length == 0) setFacebookInputError(true);
+              if (instaHandle.length == 0) setInstagramInputError(true);
+              if (facebookHandle.length > 0 && instaHandle.length > 0)
+                setStep(currentStep + 1);
+            }
           }}
         />
       </Grid>
       <Grid item>
         <TextField
+          error={instagramInputError}
+          helperText={instagramInputError ? "Please fill this in." : ""}
           color="secondary"
           id="instagram-handle"
           label="Instagram Handle"
@@ -46,9 +60,15 @@ export default function PosterTemplateSocialMedia({
           value={instaHandle}
           onChange={(event) => {
             setInstaHandle(event.target.value);
+            setInstagramInputError(false);
           }}
           onKeyDown={(event) => {
-            if (event.keyCode == 13) setStep(currentStep + 1);
+            if (event.keyCode == 13) {
+              if (facebookHandle.length == 0) setFacebookInputError(true);
+              if (instaHandle.length == 0) setInstagramInputError(true);
+              if (facebookHandle.length > 0 && instaHandle.length > 0)
+                setStep(currentStep + 1);
+            }
           }}
         />
       </Grid>

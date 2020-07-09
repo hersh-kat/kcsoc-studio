@@ -13,7 +13,7 @@ export default createMuiTheme({
       pink: lightPink,
     },
     primary: {
-      main: darkNavyBlue,
+      main: lightBlue,
     },
     secondary: {
       main: lightBlue,
@@ -23,6 +23,7 @@ export default createMuiTheme({
       secondary: "rgba(255, 255, 255, 0.74)",
     },
     action: {
+      active: "rgba(255, 255, 255, 0.74)",
       hover: lightBlue,
     },
     background: {

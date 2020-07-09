@@ -111,7 +111,13 @@ async function getPostersFromDropbox(path) {
   return Promise.all(posters);
 }
 
-export default function PosterStep1({ currentStep, setURL, setStep }) {
+export default function PosterStep1({
+  currentStep,
+  setURL,
+  setStep,
+  urlError,
+  setURLError,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -130,9 +136,26 @@ export default function PosterStep1({ currentStep, setURL, setStep }) {
   if (currentStep !== 1) return null;
 
   return (
-    <Grid container direction="column" spacing={4} justify="center">
+    <Grid item container direction="column" spacing={4} justify="center">
       <Grid item>
         <Typography variant="h2">1. Choose your event</Typography>
+        <Typography
+          variant="body1"
+          style={
+            urlError
+              ? {
+                  color: "#f44336",
+                  fontSize: "0.75rem",
+                  fontWeight: 400,
+                  lineHeight: 1.66,
+                }
+              : {
+                  display: "none",
+                }
+          }
+        >
+          Please select a poster template to use.
+        </Typography>
       </Grid>
       <Grid item>
         <InputLabel id="folder-label">Folder</InputLabel>
@@ -163,6 +186,7 @@ export default function PosterStep1({ currentStep, setURL, setStep }) {
                 url={url}
                 setURL={setURL}
                 setStep={setStep}
+                setURLError={setURLError}
               />
             </Grid>
           );
