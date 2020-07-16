@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/styles";
 import PosterTemplateSocialMedia from "./SocialMediaInput";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
-import dateFormat from "dateformat";
 import StepChangeButtons from "./StepChangeButtons";
+import ReactTransitions from "react-transitions";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -36,14 +36,7 @@ export default function PosterTemplateWizard() {
 
   return (
     <React.Fragment>
-      <p>{currentStep}</p>
-      <p>{url}</p>
-      <p>{instaHandle}</p>
-      <p>{facebookHandle}</p>
-      <p>{locationLine1}</p>
-      <p>{locationLine2}</p>
-      <p>{dateFormat(date, "ddd dS mmm")}</p>
-      <p>{dateFormat(time, "h:MM TT")}</p>
+      {" "}
       <Grid
         container
         direction="column"
@@ -54,6 +47,7 @@ export default function PosterTemplateWizard() {
         }}
         justify="center"
       >
+        {" "}
         <StepChangeButtons next={next} prev={prev} currentStep={currentStep} />
         <PosterTemplateStep1
           currentStep={currentStep}
@@ -91,8 +85,8 @@ export default function PosterTemplateWizard() {
           setDate={setDate}
           setTime={setTime}
           setStep={setCurrentStep}
-          date={date}
-          time={time}
+          date={date} //dateFormat(date, "ddd dS mmm")
+          time={time} //dateFormat(time, "h:MM TT")
           url={url}
           instaHandle={instaHandle}
           facebookHandle={facebookHandle}
@@ -103,7 +97,7 @@ export default function PosterTemplateWizard() {
           setInstagramInputError={setInstagramInputError}
           setFacebookInputError={setFacebookInputError}
           setURLError={setURLError}
-        />
+        />{" "}
       </Grid>
     </React.Fragment>
   );
