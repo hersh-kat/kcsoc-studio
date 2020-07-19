@@ -76,7 +76,14 @@ export default function DateTimeInput({
         classNames={"move"}
         unmountOnExit
       >
-        <Grid item container direction="column" spacing={4} justify="center">
+        <Grid
+          item
+          container
+          direction="column"
+          spacing={4}
+          justify="center"
+          style={{ position: "absolute" }}
+        >
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid item>
               <Typography variant="h2">

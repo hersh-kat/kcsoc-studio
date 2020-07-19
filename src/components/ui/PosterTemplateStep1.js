@@ -142,7 +142,14 @@ export default function PosterStep1({
       classNames={"move"}
       unmountOnExit
     >
-      <Grid item container direction="column" spacing={4} justify="center">
+      <Grid
+        item
+        container
+        direction="column"
+        spacing={4}
+        justify="center"
+        style={{ position: "absolute" }}
+      >
         <Grid item>
           <Typography variant="h2">1. Choose your event</Typography>
           <Typography

@@ -48,7 +48,10 @@ export default function PosterTemplateWizard() {
         justify="center"
       >
         <StepChangeButtons next={next} prev={prev} currentStep={currentStep} />
-        <TransitionGroup childFactory={(child) => React.cloneElement(child)}>
+        <TransitionGroup
+          childFactory={(child) => React.cloneElement(child)}
+          style={{ position: "relative", marginTop: "20px" }}
+        >
           <PosterTemplateStep1
             currentStep={currentStep}
             setURL={setURL}
