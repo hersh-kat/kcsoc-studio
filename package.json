@@ -34,7 +34,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-scrollable-anchor": "^0.6.1",
-    "react-transitions": "^1.0.0",
     "vendor-copy": "^2.0.0"
   },
   "scripts": {

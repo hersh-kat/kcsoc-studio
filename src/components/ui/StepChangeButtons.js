@@ -41,16 +41,16 @@ export default function StepChangeButtons({ next, prev, currentStep }) {
           <IconButton
             aria-label="next"
             size="small"
-            onClick={next}
-            disabled={currentStep == 4 ? true : false}
+            onClick={prev}
+            disabled={currentStep == 1 ? true : false}
           >
             <KeyboardArrowUpIcon fontSize="inherit" />
           </IconButton>
           <IconButton
             aria-label="prev"
             size="small"
-            onClick={prev}
-            disabled={currentStep == 1 ? true : false}
+            onClick={next}
+            disabled={currentStep == 4 ? true : false}
           >
             <KeyboardArrowDownIcon fontSize="inherit" />
           </IconButton>

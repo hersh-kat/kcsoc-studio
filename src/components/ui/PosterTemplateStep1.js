@@ -14,6 +14,7 @@ import fetch from "isomorphic-fetch";
 import { Link } from "react-router-dom";
 import PosterCard from "./PosterCard";
 import Select from "@material-ui/core/Select";
+import { CSSTransition } from "react-transition-group";
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -133,65 +134,71 @@ export default function PosterStep1({
     getPostersFromAllFolders().then((results) => setFiles(results));
   }, []);
 
-  if (currentStep !== 1) return null;
-
   return (
-    <Grid item container direction="column" spacing={4} justify="center">
-      <Grid item>
-        <Typography variant="h2">1. Choose your event</Typography>
-        <Typography
-          variant="body1"
-          style={
-            urlError
-              ? {
-                  color: "#f44336",
-                  fontSize: "0.75rem",
-                  fontWeight: 400,
-                  lineHeight: 1.66,
-                }
-              : {
-                  display: "none",
-                }
-          }
-        >
-          Please select a poster template to use.
-        </Typography>
+    <CSSTransition
+      key={1}
+      in={currentStep == 1}
+      timeout={400}
+      classNames={"move"}
+      unmountOnExit
+    >
+      <Grid item container direction="column" spacing={4} justify="center">
+        <Grid item>
+          <Typography variant="h2">1. Choose your event</Typography>
+          <Typography
+            variant="body1"
+            style={
+              urlError
+                ? {
+                    color: "#f44336",
+                    fontSize: "0.75rem",
+                    fontWeight: 400,
+                    lineHeight: 1.66,
+                  }
+                : {
+                    display: "none",
+                  }
+            }
+          >
+            Please select a poster template to use.
+          </Typography>
+        </Grid>
+        <Grid item>
+          <InputLabel id="folder-label">Folder</InputLabel>
+          <Select
+            labelId="folder-index-label"
+            className={classes.select}
+            inputProps={{
+              classes: {
+                icon: classes.icon,
+              },
+            }}
+            id="demo-simple-select"
+            value={folderIndex}
+            onChange={handleFolders}
+          >
+            <MenuItem value={0}>Term 1</MenuItem>
+            <MenuItem value={1}>Term 2</MenuItem>
+            <MenuItem value={2}>Other</MenuItem>
+          </Select>
+        </Grid>
+        <Grid container direction="row" spacing={2}>
+          {files[folderIndex].map(({ imageSrc, name, url }) => {
+            return (
+              <Grid key={name} item>
+                <PosterCard
+                  src={imageSrc}
+                  title={name}
+                  url={url}
+                  setURL={setURL}
+                  setStep={setStep}
+                  setURLError={setURLError}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
       </Grid>
-      <Grid item>
-        <InputLabel id="folder-label">Folder</InputLabel>
-        <Select
-          labelId="folder-index-label"
-          className={classes.select}
-          inputProps={{
-            classes: {
-              icon: classes.icon,
-            },
-          }}
-          id="demo-simple-select"
-          value={folderIndex}
-          onChange={handleFolders}
-        >
-          <MenuItem value={0}>Term 1</MenuItem>
-          <MenuItem value={1}>Term 2</MenuItem>
-          <MenuItem value={2}>Other</MenuItem>
-        </Select>
-      </Grid>
-      <Grid container direction="row" spacing={2}>
-        {files[folderIndex].map(({ imageSrc, name, url }) => {
-          return (
-            <Grid key={name} item>
-              <PosterCard
-                src={imageSrc}
-                title={name}
-                url={url}
-                setURL={setURL}
-                setStep={setStep}
-                setURLError={setURLError}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Grid>
+    </CSSTransition>
   );
 }

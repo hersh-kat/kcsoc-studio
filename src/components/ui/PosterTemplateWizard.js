@@ -6,8 +6,8 @@ import PosterTemplateSocialMedia from "./SocialMediaInput";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
 import StepChangeButtons from "./StepChangeButtons";
-import ReactTransitions from "react-transitions";
-
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "../../css/animations.css";
 const useStyles = makeStyles((theme) => ({}));
 
 /*State from all the steps will be stored in here*/
@@ -26,6 +26,7 @@ export default function PosterTemplateWizard() {
   const [locationLine2Error, setLocationLine2Error] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [appearStep, setAppearStep] = useState(true);
 
   const next = () => {
     setCurrentStep(currentStep + 1);
@@ -36,7 +37,6 @@ export default function PosterTemplateWizard() {
 
   return (
     <React.Fragment>
-      {" "}
       <Grid
         container
         direction="column"
@@ -47,57 +47,58 @@ export default function PosterTemplateWizard() {
         }}
         justify="center"
       >
-        {" "}
         <StepChangeButtons next={next} prev={prev} currentStep={currentStep} />
-        <PosterTemplateStep1
-          currentStep={currentStep}
-          setURL={setURL}
-          setStep={next}
-          urlError={urlError}
-          setURLError={setURLError}
-        />
-        <PosterTemplateSocialMedia
-          currentStep={currentStep}
-          setInstaHandle={setInstaHandle}
-          setFacebookHandle={setFacebookHandle}
-          setStep={next}
-          instaHandle={instaHandle}
-          facebookHandle={facebookHandle}
-          facebookInputError={facebookInputError}
-          setFacebookInputError={setFacebookInputError}
-          instagramInputError={instagramInputError}
-          setInstagramInputError={setInstagramInputError}
-        />
-        <PosterTemplateLocation
-          currentStep={currentStep}
-          setLocationLine1={setLocationLine1}
-          setLocationLine2={setLocationLine2}
-          setStep={next}
-          locationLine1={locationLine1}
-          locationLine2={locationLine2}
-          locationLine1Error={locationLine1Error}
-          setLocationLine1Error={setLocationLine1Error}
-          locationLine2Error={locationLine2Error}
-          setLocationLine2Error={setLocationLine2Error}
-        />
-        <DateTimeInput
-          currentStep={currentStep}
-          setDate={setDate}
-          setTime={setTime}
-          setStep={setCurrentStep}
-          date={date} //dateFormat(date, "ddd dS mmm")
-          time={time} //dateFormat(time, "h:MM TT")
-          url={url}
-          instaHandle={instaHandle}
-          facebookHandle={facebookHandle}
-          locationLine1={locationLine1}
-          locationLine2={locationLine2}
-          setLocationLine1Error={setLocationLine1Error}
-          setLocationLine2Error={setLocationLine2Error}
-          setInstagramInputError={setInstagramInputError}
-          setFacebookInputError={setFacebookInputError}
-          setURLError={setURLError}
-        />{" "}
+        <TransitionGroup childFactory={(child) => React.cloneElement(child)}>
+          <PosterTemplateStep1
+            currentStep={currentStep}
+            setURL={setURL}
+            setStep={next}
+            urlError={urlError}
+            setURLError={setURLError}
+          />
+          <PosterTemplateSocialMedia
+            currentStep={currentStep}
+            setInstaHandle={setInstaHandle}
+            setFacebookHandle={setFacebookHandle}
+            setStep={next}
+            instaHandle={instaHandle}
+            facebookHandle={facebookHandle}
+            facebookInputError={facebookInputError}
+            setFacebookInputError={setFacebookInputError}
+            instagramInputError={instagramInputError}
+            setInstagramInputError={setInstagramInputError}
+          />
+          <PosterTemplateLocation
+            currentStep={currentStep}
+            setLocationLine1={setLocationLine1}
+            setLocationLine2={setLocationLine2}
+            setStep={next}
+            locationLine1={locationLine1}
+            locationLine2={locationLine2}
+            locationLine1Error={locationLine1Error}
+            setLocationLine1Error={setLocationLine1Error}
+            locationLine2Error={locationLine2Error}
+            setLocationLine2Error={setLocationLine2Error}
+          />
+          <DateTimeInput
+            currentStep={currentStep}
+            setDate={setDate}
+            setTime={setTime}
+            setStep={setCurrentStep}
+            date={date} //dateFormat(date, "ddd dS mmm")
+            time={time} //dateFormat(time, "h:MM TT")
+            url={url}
+            instaHandle={instaHandle}
+            facebookHandle={facebookHandle}
+            locationLine1={locationLine1}
+            locationLine2={locationLine2}
+            setLocationLine1Error={setLocationLine1Error}
+            setLocationLine2Error={setLocationLine2Error}
+            setInstagramInputError={setInstagramInputError}
+            setFacebookInputError={setFacebookInputError}
+            setURLError={setURLError}
+          />
+        </TransitionGroup>
       </Grid>
     </React.Fragment>
   );
