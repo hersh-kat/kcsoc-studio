@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import PosterCard from "./PosterCard";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
+import "../../css/animations.css";
 
 const useStyles = makeStyles((theme) => ({
   select: {

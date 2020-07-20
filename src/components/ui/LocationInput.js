@@ -85,28 +85,43 @@ export default function PosterTemplateLocation({
             }}
           />
         </Grid>
-        {locationLine1.length > 0 && locationLine2.length > 0 && (
-          <Grid item container direction="row" spacing={2} alignItems="center">
-            <Grid item>
-              <Button
-                variant="contained"
-                startIcon={<CheckIcon />}
-                color="inherit"
-                style={{ backgroundColor: "rgb(34,48, 64)" }}
-                onClick={(event) => {
-                  setStep(currentStep + 1);
-                }}
+        <CSSTransition
+          timeout={400}
+          classNames={"flipX"}
+          in={locationLine1.length > 0 && locationLine2.length > 0}
+          unmountOnExit
+        >
+          <div>
+            {
+              <Grid
+                item
+                container
+                direction="row"
+                spacing={2}
+                alignItems="center"
               >
-                Ok
-              </Button>
-            </Grid>
-            <Grid item>
-              <Typography variant="p">
-                Press <b>Enter ↵</b>
-              </Typography>
-            </Grid>
-          </Grid>
-        )}
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    startIcon={<CheckIcon />}
+                    color="inherit"
+                    style={{ backgroundColor: "rgb(34,48, 64)" }}
+                    onClick={(event) => {
+                      setStep(currentStep + 1);
+                    }}
+                  >
+                    Ok
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Typography variant="p">
+                    Press <b>Enter ↵</b>
+                  </Typography>
+                </Grid>
+              </Grid>
+            }
+          </div>
+        </CSSTransition>
       </Grid>
     </CSSTransition>
   );
