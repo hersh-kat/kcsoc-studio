@@ -8,6 +8,7 @@ import DateTimeInput from "./DateTimeInput";
 import StepChangeButtons from "./StepChangeButtons";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../../css/animations.css";
+import GeneratePosterButton from "./GeneratePosterButton";
 const useStyles = makeStyles((theme) => ({}));
 
 /*State from all the steps will be stored in here*/
@@ -87,19 +88,23 @@ export default function PosterTemplateWizard() {
             currentStep={currentStep}
             setDate={setDate}
             setTime={setTime}
-            setStep={setCurrentStep}
-            date={date} //dateFormat(date, "ddd dS mmm")
-            time={time} //dateFormat(time, "h:MM TT")
-            url={url}
-            instaHandle={instaHandle}
-            facebookHandle={facebookHandle}
-            locationLine1={locationLine1}
-            locationLine2={locationLine2}
-            setLocationLine1Error={setLocationLine1Error}
-            setLocationLine2Error={setLocationLine2Error}
-            setInstagramInputError={setInstagramInputError}
-            setFacebookInputError={setFacebookInputError}
-            setURLError={setURLError}
+            generatePosterComponent={
+              <GeneratePosterButton
+                date={date} //dateFormat(date, "ddd dS mmm")
+                time={time} //dateFormat(time, "h:MM TT")
+                url={url}
+                instaHandle={instaHandle}
+                facebookHandle={facebookHandle}
+                locationLine1={locationLine1}
+                locationLine2={locationLine2}
+                setLocationLine1Error={setLocationLine1Error}
+                setLocationLine2Error={setLocationLine2Error}
+                setInstagramInputError={setInstagramInputError}
+                setFacebookInputError={setFacebookInputError}
+                setURLError={setURLError}
+                setStep={setCurrentStep}
+              />
+            }
           />
         </TransitionGroup>
       </Grid>
