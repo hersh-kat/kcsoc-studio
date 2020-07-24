@@ -41,6 +41,7 @@ export default function PosterTemplateSocialMedia({
         </Grid>
         <Grid item>
           <TextField
+            autoFocus
             error={facebookInputError}
             helperText={facebookInputError ? "Please fill this in." : ""}
             color="secondary"

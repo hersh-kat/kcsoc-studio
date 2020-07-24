@@ -19,6 +19,9 @@ export default function DateTimeInput({
   time,
   generatePosterComponent,
 }) {
+  const [date2, setDate2] = useState(date);
+  const [time2, setTime2] = useState(time);
+
   return (
     <React.Fragment>
       <CSSTransition
@@ -45,32 +48,21 @@ export default function DateTimeInput({
             </Grid>
             <Grid item>
               <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
+                autoFocus
                 format="dd/MM/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date"
-                value={date}
-                onChange={(date) => {
-                  setDate(date);
-                }}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
+                value={date2}
+                onChange={(newValue) => {
+                  setDate(newValue);
+                  setDate2(newValue);
                 }}
               />
             </Grid>
             <Grid item>
               <KeyboardTimePicker
-                margin="normal"
-                id="time-picker"
-                label="Time"
-                value={time}
+                value={time2}
                 onChange={(time) => {
                   setTime(time);
-                }}
-                KeyboardButtonProps={{
-                  "aria-label": "change time",
+                  setTime2(time);
                 }}
               />
             </Grid>

@@ -22,6 +22,16 @@ export default function GeneratePosterButton({
   const validateSteps = () => {
     var goToNextPage = true;
 
+    if (isNaN(date)) {
+      setStep(4);
+      goToNextPage = false;
+    }
+
+    if (isNaN(time)) {
+      setStep(4);
+      goToNextPage = false;
+    }
+
     if (locationLine1 == "") {
       setLocationLine1Error(true);
       setStep(3);

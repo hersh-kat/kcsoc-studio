@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { withRouter, Route, Link } from "react-router-dom";
 import { Grid, Button, Typography } from "@material-ui/core";
+import HashLoader from "react-spinners/HashLoader";
 
 function arrayBufferToBase64(buffer) {
   var binary = "";
@@ -99,45 +100,52 @@ export default function GeneratePoster(props) {
           spacing={2}
           style={{ textAlign: "center" }}
         >
-          {imageData && (
-            <Grid item>
-              <img
-                src={"data:image/jpg;base64," + imageData}
-                style={{ width: "50%" }}
-              />
+          {imageData == null && (
+            <Grid item style={{ marginTop: "30%" }}>
+              <HashLoader size={150} color={"#70edff"} loading={true} />
             </Grid>
           )}
-          <Grid item container direction="row" justify="space-around">
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                download
-                href={"data:image/jpg;base64," + imageData}
-              >
-                Download JPG
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                download
-                href={props.location.state.url}
-              >
-                Download PSD
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => setHidePhotopea(false)}
-              >
-                Edit in Photopea
-              </Button>
-            </Grid>
-          </Grid>
+          {imageData && (
+            <div>
+              <Grid item>
+                <img
+                  src={"data:image/jpg;base64," + imageData}
+                  style={{ width: "50%" }}
+                />
+              </Grid>
+              <Grid item container direction="row" justify="space-around">
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    download
+                    href={"data:image/jpg;base64," + imageData}
+                  >
+                    Download JPG
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    download
+                    href={props.location.state.url}
+                  >
+                    Download PSD
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => setHidePhotopea(false)}
+                  >
+                    Edit in Photopea
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          )}
           <Grid item>
             <iframe
               title="myPoster"

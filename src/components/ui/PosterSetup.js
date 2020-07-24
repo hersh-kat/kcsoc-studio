@@ -26,6 +26,7 @@ export default function PosterStep1() {
         paddingTop: "200px",
         paddingBottom: "200px",
         minHeight: "100vh",
+        position: "absolute",
       }}
       justify="center"
     >

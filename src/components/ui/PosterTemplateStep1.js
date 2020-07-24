@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import PosterCard from "./PosterCard";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
+import { css } from "@emotion/core";
+import HashLoader from "react-spinners/HashLoader";
 import "../../css/animations.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -126,23 +128,23 @@ export default function PosterStep1({
 
   const [files, setFiles] = useState([[]]);
   const [folderIndex, setFolderIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const handleFolders = (event) => {
     setFolderIndex(event.target.value);
   };
 
-  useEffect(() => {
-    getPostersFromAllFolders().then((results) => setFiles(results));
-  }, []);
-
-  return (
-    <CSSTransition
-      key={1}
-      in={currentStep == 1}
-      timeout={400}
-      classNames={"move"}
-      unmountOnExit
-    >
+  let child = null;
+  if (files[0].length == 0) {
+    child = (
+      <Grid container direction="row" justify="center" key={"loading"}>
+        <Grid item style={{ marginTop: "60px" }}>
+          <HashLoader size={150} color={"#70edff"} loading={true} />
+        </Grid>
+      </Grid>
+    );
+  } else {
+    child = (
       <Grid
         item
         container
@@ -150,6 +152,7 @@ export default function PosterStep1({
         spacing={4}
         justify="center"
         style={{ position: "absolute" }}
+        key="loaded"
       >
         <Grid item>
           <Typography variant="h2">1. Choose your event</Typography>
@@ -207,6 +210,22 @@ export default function PosterStep1({
           })}
         </Grid>
       </Grid>
+    );
+  }
+
+  useEffect(() => {
+    getPostersFromAllFolders().then((results) => setFiles(results));
+  }, []);
+
+  return (
+    <CSSTransition
+      key={1}
+      in={currentStep == 1}
+      timeout={400}
+      classNames={"move"}
+      unmountOnExit
+    >
+      {child}
     </CSSTransition>
   );
 }

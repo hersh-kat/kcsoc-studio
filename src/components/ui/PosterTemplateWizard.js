@@ -27,7 +27,6 @@ export default function PosterTemplateWizard() {
   const [locationLine2Error, setLocationLine2Error] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
-  const [appearStep, setAppearStep] = useState(true);
 
   const next = () => {
     setCurrentStep(currentStep + 1);
@@ -45,6 +44,7 @@ export default function PosterTemplateWizard() {
         style={{
           paddingTop: "200px",
           paddingBottom: "200px",
+          position: "absolute",
         }}
         justify="center"
       >

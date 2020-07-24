@@ -41,6 +41,7 @@ export default function PosterTemplateLocation({
         </Grid>
         <Grid item>
           <TextField
+            autoFocus
             error={locationLine1Error}
             helperText={locationLine1Error ? "Please fill this in." : ""}
             color="secondary"
