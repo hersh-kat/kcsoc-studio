@@ -123,12 +123,8 @@ export default function PosterStep1({
   setURLError,
 }) {
   const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [files, setFiles] = useState([[]]);
   const [folderIndex, setFolderIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   const handleFolders = (event) => {
     setFolderIndex(event.target.value);

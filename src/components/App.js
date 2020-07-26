@@ -10,6 +10,7 @@ import PosterTemplateWizard from "./ui/PosterTemplateWizard";
 import GeneratePoster from "./ui/GeneratePoster";
 import { CSSTransition } from "react-transition-group";
 import "../css/animations.css";
+import PosterCustomWizard from "./ui/PosterCustomWizard";
 
 function App() {
   return (
@@ -39,6 +40,18 @@ function App() {
                 unmountOnExit
               >
                 <PosterTemplateWizard />
+              </CSSTransition>
+            )}
+          </Route>
+          <Route exact path="/create/poster/custom">
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="page"
+                unmountOnExit
+              >
+                <PosterCustomWizard />
               </CSSTransition>
             )}
           </Route>

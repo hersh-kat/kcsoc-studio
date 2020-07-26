@@ -46,7 +46,6 @@ export default function PosterStep1() {
         <Grid item>
           <Link to="/create/poster/template" style={{ textDecoration: "none" }}>
             <Button variant="outlined" color="secondary" size="large">
-              {/*USE ONCHANGE/ONCLICK TO UPDATE GLOBAL STATE*/}
               Use Poster Template
             </Button>
           </Link>
