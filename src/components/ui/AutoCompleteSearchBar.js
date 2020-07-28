@@ -1,23 +1,114 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { useState, useEffect } from "react";
+import jsonp from "jsonp";
 
 export default function AutoCompleteSearchBar() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+
+  //useEffect(() => {
+  //console.log(query);
+  // Update the document title using the browser API
+  //getResults(query, setResults);
+  //});
+
   return (
-    <Autocomplete
-      freeSolo
-      options={top100Films.map((option) => option.title)}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search"
-          margin="normal"
-          variant="outlined"
-        />
-      )}
-    />
+    <React.Fragment>
+      <Autocomplete
+        freeSolo
+        options={results.map((option) => option.term)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Search"
+            margin="normal"
+            variant="outlined"
+            value={query}
+            onChange={(event) => {
+              getResults(event.target.value, setResults);
+            }}
+          />
+        )}
+      />
+    </React.Fragment>
   );
 }
+
+function getResults(query, setResults) {
+  if (query == "") return;
+
+  jsonp(
+    "https://autocomplete.fotolia.com/?callback=getData&language_id=2&query=" +
+      query,
+    { name: "getData" },
+    (error, data) => {
+      if (error) {
+        console.log(error);
+      } else {
+        setResults(data.hits);
+      }
+    }
+  );
+}
+/*function getResults(searchQuery) {
+  const res = fetch(
+    "https://cors-anywhere.herokuapp.com/" +
+      "https://unsplash.com/nautocomplete/" +
+      searchQuery,
+    {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors",
+      headers: {
+        "allow-control-allow-origin": "https://unsplash.com",
+        "content-type": "application/x-www-form-urlencoded",
+        //origin: window.location.protocol + "//" + window.location.host,
+      },
+    }
+  )
+    .then((res) => res.json())
+    .then(
+      (json) => console.log(json.result),
+      (err) => console.log(err)
+    );
+}*/
+
+/*fetch(
+    "https://cors-anywhere.herokuapp.com/" +
+      "https://unsplash.com/nautocomplete/" +
+      searchQuery,
+    {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors",
+      headers: {
+        "allow-control-allow-origin": "https://unsplash.com",
+        "content-type": "application/x-www-form-urlencoded",
+        //origin: window.location.protocol + "//" + window.location.host,
+      },
+    }
+  )
+    .then((res) => res.body.getReader())
+    .then(
+      (accept) => console.log(accept.read()),
+      (rej) => console.log(rej)
+    );
+}*/
+
+var getJSON = function (url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.responseType = "json";
+  xhr.onload = function () {
+    var status = xhr.status;
+    if (status === 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status, xhr.response);
+    }
+  };
+  xhr.send();
+};
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
