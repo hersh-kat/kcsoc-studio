@@ -1,11 +1,17 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import jsonp from "jsonp";
 
-export default function AutoCompleteSearchBar() {
-  const [query, setQuery] = useState("");
+export default function AutoCompleteSearchBar({
+  query,
+  setQuery,
+  getImageResults,
+  setImages,
+  page,
+  setPage,
+}) {
   const [results, setResults] = useState([]);
 
   //useEffect(() => {
@@ -26,7 +32,12 @@ export default function AutoCompleteSearchBar() {
             margin="normal"
             variant="outlined"
             value={query}
+            onKeyDown={(e) => {
+              if (e.key === "Enter")
+                getImageResults(query, setImages, page, setPage);
+            }}
             onChange={(event) => {
+              setQuery(event.target.value);
               getResults(event.target.value, setResults);
             }}
           />

@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({}));
 
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
-  const classes = useStyles();
   const [currentStep, setCurrentStep] = useState(1);
   const [url, setURL] = useState("");
   const [urlError, setURLError] = useState(false);
