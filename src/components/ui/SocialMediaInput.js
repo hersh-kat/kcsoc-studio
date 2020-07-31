@@ -7,6 +7,7 @@ import { CSSTransition } from "react-transition-group";
 
 export default function PosterTemplateSocialMedia({
   currentStep,
+  showOnStep,
   setFacebookHandle,
   setInstaHandle,
   setStep,
@@ -19,8 +20,8 @@ export default function PosterTemplateSocialMedia({
 }) {
   return (
     <CSSTransition
-      key={2}
-      in={currentStep == 2}
+      key={showOnStep}
+      in={currentStep == showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit

@@ -4,23 +4,18 @@ import TextField from "@material-ui/core/TextField";
 import CheckIcon from "@material-ui/icons/Check";
 import { CSSTransition } from "react-transition-group";
 
-export default function PosterTemplateLocation({
+export default function TitleInput({
   currentStep,
-  showOnStep,
-  setLocationLine1,
-  setLocationLine2,
+  setTitle,
   setStep,
-  locationLine1,
-  locationLine2,
-  locationLine1Error,
-  locationLine2Error,
-  setLocationLine1Error,
-  setLocationLine2Error,
+  setTitleError,
+  title,
+  titleError,
 }) {
   return (
     <CSSTransition
-      key={3}
-      in={currentStep == showOnStep}
+      key={2}
+      in={currentStep == 2}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -36,52 +31,28 @@ export default function PosterTemplateLocation({
         <Grid item>
           <Typography variant="h2">
             {" "}
-            {currentStep}. Enter the location details for your event.
+            {currentStep}. Enter the title for your event poster.
           </Typography>
         </Grid>
         <Grid item>
           <TextField
             autoFocus
-            error={locationLine1Error}
-            helperText={locationLine1Error ? "Please fill this in." : ""}
+            error={titleError}
+            helperText={titleError ? "Please fill this in." : ""}
             color="secondary"
-            id="location-line-1"
-            label="Building Name"
-            placeholder="KCSOC HQ"
-            value={locationLine1}
+            id="title"
+            label="Title"
+            placeholder="Event Name"
+            value={title}
             onChange={(event) => {
-              setLocationLine1(event.target.value);
-              setLocationLine1Error(false);
+              setTitle(event.target.value);
+              setTitleError(false);
             }}
             onKeyDown={(event) => {
               if (event.keyCode == 13) {
-                if (locationLine1.length == 0) setLocationLine1Error(true);
-                if (locationLine2.length == 0) setLocationLine2Error(true);
-                if (locationLine1.length > 0 && locationLine2.length > 0)
-                  setStep(currentStep + 1);
-              }
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            error={locationLine2Error}
-            helperText={locationLine2Error ? "Please fill this in." : ""}
-            color="secondary"
-            id="location-line-2"
-            label="Room Number"
-            placeholder="Room 108"
-            value={locationLine2}
-            onChange={(event) => {
-              setLocationLine2(event.target.value);
-              setLocationLine2Error(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.keyCode == 13) {
-                if (locationLine1.length == 0) setLocationLine1Error(true);
-                if (locationLine2.length == 0) setLocationLine2Error(true);
-                if (locationLine1.length > 0 && locationLine2.length > 0)
-                  setStep(currentStep + 1);
+                if (title.length == 0) setTitleError(true);
+                if (title.length == 0) setTitleError(true);
+                if (title.length > 0) setStep(currentStep + 1);
               }
             }}
           />
@@ -89,7 +60,7 @@ export default function PosterTemplateLocation({
         <CSSTransition
           timeout={400}
           classNames={"flipX"}
-          in={locationLine1.length > 0 && locationLine2.length > 0}
+          in={title.length > 0}
           unmountOnExit
         >
           <div>

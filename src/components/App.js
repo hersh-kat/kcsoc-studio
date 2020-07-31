@@ -4,10 +4,11 @@ import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import theme from "./ui/Theme";
 import Home from "./ui/Home";
 import ChooseCreation from "./ui/ChooseCreation";
-import { Switch, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import PosterSetup from "./ui/PosterSetup";
 import PosterTemplateWizard from "./ui/PosterTemplateWizard";
 import GeneratePoster from "./ui/GeneratePoster";
+import GenerateCustomPoster from "./ui/GenerateCustomPoster";
 import { CSSTransition } from "react-transition-group";
 import "../css/animations.css";
 import PosterCustomWizard from "./ui/PosterCustomWizard";
@@ -17,6 +18,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <Container style={{ position: "relative" }}>
+          <Route
+            exact
+            path="/create/poster/custom/generate"
+            render={(props) => (
+              <CSSTransition
+                in={props.match != null}
+                timeout={300}
+                classNames="page"
+                unmountOnExit
+              >
+                <GenerateCustomPoster {...props} />
+              </CSSTransition>
+            )}
+          ></Route>
           <Route
             exact
             path="/create/poster/template/generate"

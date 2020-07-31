@@ -13,6 +13,7 @@ import {
 
 export default function DateTimeInput({
   currentStep,
+  showOnStep,
   setDate,
   setTime,
   date,
@@ -25,8 +26,8 @@ export default function DateTimeInput({
   return (
     <React.Fragment>
       <CSSTransition
-        key={4}
-        in={currentStep == 4}
+        key={showOnStep}
+        in={currentStep == showOnStep}
         timeout={400}
         classNames={"move"}
         unmountOnExit

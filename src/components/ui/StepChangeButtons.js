@@ -1,6 +1,6 @@
 import React from "react";
 import MobileStepper from "@material-ui/core/MobileStepper";
-import { ButtonGroup, IconButton, Grid, Button } from "@material-ui/core";
+import { ButtonGroup, IconButton, Grid } from "@material-ui/core";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StepChangeButtons({ next, prev, currentStep }) {
+export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
   const classes = useStyles();
 
   return (
@@ -23,7 +23,7 @@ export default function StepChangeButtons({ next, prev, currentStep }) {
       <Grid item>
         <MobileStepper
           variant="progress"
-          steps={4}
+          steps={endAt}
           position="static"
           activeStep={currentStep - 1}
           classes={{
@@ -50,7 +50,7 @@ export default function StepChangeButtons({ next, prev, currentStep }) {
             aria-label="prev"
             size="small"
             onClick={next}
-            disabled={currentStep == 4 ? true : false}
+            disabled={currentStep == endAt ? true : false}
           >
             <KeyboardArrowRightIcon fontSize="inherit" />
           </IconButton>

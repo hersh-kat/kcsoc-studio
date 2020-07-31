@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Grid,
   Typography,
-  Button,
   makeStyles,
   useMediaQuery,
   MenuItem,
@@ -11,11 +10,9 @@ import {
 import { useTheme } from "@material-ui/core/styles";
 import { Dropbox, DropboxBase } from "dropbox";
 import fetch from "isomorphic-fetch";
-import { Link } from "react-router-dom";
 import PosterCard from "./PosterCard";
 import Select from "@material-ui/core/Select";
 import { CSSTransition } from "react-transition-group";
-import { css } from "@emotion/core";
 import HashLoader from "react-spinners/HashLoader";
 import "../../css/animations.css";
 
@@ -121,6 +118,7 @@ export default function PosterStep1({
   setStep,
   urlError,
   setURLError,
+  showOnStep,
 }) {
   const classes = useStyles();
   const [files, setFiles] = useState([[]]);
@@ -215,8 +213,8 @@ export default function PosterStep1({
 
   return (
     <CSSTransition
-      key={1}
-      in={currentStep == 1}
+      key={showOnStep}
+      in={currentStep == showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit

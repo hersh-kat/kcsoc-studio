@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { withRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Grid, Button, Typography } from "@material-ui/core";
 import HashLoader from "react-spinners/HashLoader";
 
@@ -52,7 +52,7 @@ function linkBuilder(props) {
   var finalLink =
     link + script + script2 + script3 + script4 + script5 + script6 + script7;
   finalLink = finalLink.trim();
-
+  console.log(finalLink);
   return finalLink;
 }
 
