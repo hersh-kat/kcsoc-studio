@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import PosterTemplateStep1 from "./PosterTemplateStep1";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
 import StepChangeButtons from "./StepChangeButtons";
@@ -10,12 +8,11 @@ import TitleInput from "./TitleInput";
 import "../../css/animations.css";
 import GenerateVideoButton from "./GenerateVideoButton";
 import TagsInput from "./TagsInput";
-const useStyles = makeStyles((theme) => ({}));
 
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState("");
   const [tagsError, setTagsError] = useState(false);
   const [locationLine1, setLocationLine1] = useState("");
   const [locationLine2, setLocationLine2] = useState("");
@@ -59,8 +56,9 @@ export default function PosterTemplateWizard() {
           <TagsInput
             currentStep={currentStep}
             showOnStep={1}
-            setTags={setURL}
+            setTags={setTags}
             setStep={next}
+            tags={tags}
             tagsError={tagsError}
             setTagsError={setTagsError}
           />
@@ -96,6 +94,7 @@ export default function PosterTemplateWizard() {
                 date={date} //dateFormat(date, "ddd dS mmm")
                 time={time} //dateFormat(time, "h:MM TT")
                 tags={tags}
+                title={title}
                 setTagsError={setTagsError}
                 locationLine1={locationLine1}
                 locationLine2={locationLine2}

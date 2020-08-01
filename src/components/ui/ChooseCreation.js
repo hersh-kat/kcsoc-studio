@@ -69,16 +69,18 @@ export default function ChooseCreation() {
           </Link>
         </Grid>
         <Grid item>
-          <Button variant="outlined" className={styles.pinkButton}>
-            <Grid item container direction="column">
-              <Grid item>
-                <MovieCreationOutlinedIcon fontSize="large" />
+          <Link to="/create/trailer" style={{ textDecoration: "none" }}>
+            <Button variant="outlined" className={styles.pinkButton}>
+              <Grid item container direction="column">
+                <Grid item>
+                  <MovieCreationOutlinedIcon fontSize="large" />
+                </Grid>
+                <Typography style={{ fontWeight: 700 }}>
+                  Create Trailer
+                </Typography>
               </Grid>
-              <Typography style={{ fontWeight: 700 }}>
-                Create Trailer
-              </Typography>
-            </Grid>
-          </Button>
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     </Grid>

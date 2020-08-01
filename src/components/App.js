@@ -12,6 +12,8 @@ import GenerateCustomPoster from "./ui/GenerateCustomPoster";
 import { CSSTransition } from "react-transition-group";
 import "../css/animations.css";
 import PosterCustomWizard from "./ui/PosterCustomWizard";
+import GenerateVideo from "./ui/GenerateVideo";
+import VideoWizard from "./ui/VideoWizard";
 
 function App() {
   return (
@@ -46,6 +48,32 @@ function App() {
               </CSSTransition>
             )}
           ></Route>
+          <Route
+            exact
+            path="/create/trailer/generate"
+            render={(props) => (
+              <CSSTransition
+                in={props.match != null}
+                timeout={300}
+                classNames="page"
+                unmountOnExit
+              >
+                <GenerateVideo {...props} />
+              </CSSTransition>
+            )}
+          ></Route>
+          <Route exact path="/create/trailer">
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="page"
+                unmountOnExit
+              >
+                <VideoWizard />
+              </CSSTransition>
+            )}
+          </Route>
           <Route exact path="/create/poster/template">
             {({ match }) => (
               <CSSTransition
