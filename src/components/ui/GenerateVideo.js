@@ -1,8 +1,9 @@
 import React from "react";
 import { createClient } from "pexels";
 import { useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Grid, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 //Returns an array of video links. Always of size 6.
 async function getPexelVideos(tags) {
@@ -48,7 +49,6 @@ async function getPexelVideos(tags) {
 }
 
 async function ShotstackAPI(vidLinks, props) {
-  console.log(vidLinks);
   let tracks = [];
 
   const {
@@ -58,7 +58,6 @@ async function ShotstackAPI(vidLinks, props) {
     locationLine1,
     locationLine2,
   } = props.location.state;
-  console.log(props.location.state);
   let kcsocPresentsClip = {
     asset: {
       type: "title",
@@ -224,6 +223,16 @@ async function ShotstackAPI(vidLinks, props) {
     length: 3,
   };
 
+  /*let imageClipEnd = {
+    asset: {
+      type: "image",
+      src:
+        "https://dl.dropboxusercontent.com/s/31lhyn53p2s3icy/logoVideo.png?dl=0",
+    },
+    start: 28,
+    length: 2,
+  };*/
+
   tracks[0] = {
     clips: [
       kcsocPresentsClip,
@@ -266,9 +275,6 @@ async function ShotstackAPI(vidLinks, props) {
     "x-api-key": "***REMOVED***",
   };
 
-  console.log("Calling shotstack api with body: ");
-  console.log(edit);
-
   const response = await fetch("https://api.shotstack.io/stage/render", {
     method: "POST",
     body: JSON.stringify(edit),
@@ -276,11 +282,14 @@ async function ShotstackAPI(vidLinks, props) {
   });
 
   const responseJSON = await response.json();
-  console.log(responseJSON);
+  if (responseJSON.success == true) return responseJSON.response.id;
+  else throw "An error occured. Video could not be generated";
 }
 
 export default function GenerateVideo(props) {
   const [videoLinks, setVideoLinks] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [videoURL, setVideoURL] = useState("");
   //const tags = "Meditate, Friends, Happy";
 
   useEffect(() => {
@@ -302,11 +311,73 @@ export default function GenerateVideo(props) {
         return hdVideo;
       });
 
+      //Create poll function
+      const poll = async ({ fn, validate, interval, id, maxAttempts }) => {
+        let attempts = 0;
+
+        const executePoll = async (resolve, reject) => {
+          const result = await fn(id);
+          attempts++;
+          const resultJSON = await result.json();
+          if (validate(resultJSON)) {
+            return resolve(resultJSON);
+          } else if (maxAttempts && attempts === maxAttempts) {
+            return reject(new Error("Exceeded max attempts"));
+          } else {
+            setTimeout(executePoll, interval, resolve, reject);
+          }
+        };
+
+        return new Promise(executePoll);
+      };
+
+      //Polling function
+      const pollShotstackRender = async (vidID) => {
+        const headers = {
+          Accept: "application/json",
+          "x-api-key": "***REMOVED***",
+        };
+
+        //console.log("Polling shotstack API...");
+
+        const response = await fetch(
+          "https://api.shotstack.io/stage/render/" + vidID,
+          {
+            method: "GET",
+            headers: headers,
+          }
+        );
+        return response;
+      };
+
+      //validation function
+      const validateResponse = (result) => {
+        //console.log(result);
+        if (result.response.status == "done") return true;
+        else return false;
+      };
+
       //Call shotstack API
-      ShotstackAPI(
-        vidLinksFinal.map((obj) => obj.link),
-        props
-      );
+      try {
+        const vidID = await ShotstackAPI(
+          vidLinksFinal.map((obj) => obj.link),
+          props
+        );
+
+        const response = await poll({
+          fn: pollShotstackRender,
+          validate: validateResponse,
+          interval: 1500,
+          maxAttempts: 30,
+          id: vidID,
+        });
+
+        //console.log(response);
+        setVideoURL(response.response.url);
+      } catch (e) {
+        //console.log(e);
+        setIsError(true);
+      }
     }
     // Update the document title using the browser API
     fetchLinks();
@@ -319,6 +390,45 @@ export default function GenerateVideo(props) {
           Oops...Something went wrong. Please return home by clicking{" "}
           <Link to="/">here</Link>.
         </Typography>
+      )}
+      {props.location.state != null && (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          spacing={2}
+          style={{ textAlign: "center" }}
+        >
+          {videoURL == "" && (
+            <React.Fragment>
+              <Grid item>
+                <Typography>
+                  Rendering may take up to 1 - 2 minutes, please wait...
+                </Typography>
+              </Grid>
+              <Grid item style={{ marginTop: "30%" }}>
+                <HashLoader size={150} color={"#70edff"} loading={true} />
+              </Grid>
+            </React.Fragment>
+          )}
+          {videoURL != "" && (
+            <React.Fragment>
+              <Grid item>
+                <video controls autoPlay src={videoURL} type="video/mp4" />
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  download
+                  href={videoURL}
+                >
+                  Download MP4
+                </Button>
+              </Grid>
+            </React.Fragment>
+          )}
+        </Grid>
       )}
     </React.Fragment>
   );
