@@ -1,38 +1,46 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const darkNavyBlue = "#0e141b";
 const lightBlue = "#70edff";
+const lightGreen = "#05cd51";
+const lightGreenDisabled = "rgba(5, 205,81, 0.4)";
+const lightGrey = "rgb(237, 237, 237)";
 const lightPink = "#fca2ff";
 const white = "#fff";
-const lightNavyBlue = "#2a3a4d";
-
+const black = "#000000";
+const offWhite = "#e5ddd5";
+const pastelBlue = "rgb(226, 242, 251)";
+const pastelPink = "rgb(253, 234, 252)";
 export default createMuiTheme({
   palette: {
     common: {
       blue: lightBlue,
       pink: lightPink,
+      lightGrey: lightGrey,
+      lightGreenDisabled: lightGreenDisabled,
+      pastelBlue: pastelBlue,
+      pastelPink: pastelPink,
     },
     primary: {
-      main: lightBlue,
+      main: lightGreen,
     },
     secondary: {
-      main: lightBlue,
+      main: black,
     },
     text: {
-      primary: white,
-      secondary: "rgba(255, 255, 255, 0.74)",
+      primary: black,
+      secondary: black,
     },
     action: {
       active: "rgba(255, 255, 255, 0.74)",
-      hover: lightBlue,
+      hover: "#05cd51",
     },
     background: {
-      paper: lightNavyBlue,
-      default: darkNavyBlue,
+      paper: white,
+      default: offWhite,
     },
   },
   typography: {
-    fontFamily: ["Fira Sans", "sans-serif"].join(","),
+    fontFamily: ["Open Sans", "sans-serif"].join(","),
     button: {
       textTransform: "uppercase",
       fontWeight: 500,
@@ -41,7 +49,7 @@ export default createMuiTheme({
     },
     h2: {
       fontSize: "1.3rem",
-      fontWeight: 700,
+      fontWeight: 600,
     },
     body1: {
       fontSize: "1.2rem",

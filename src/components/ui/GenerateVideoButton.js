@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
 import dateFormat from "dateformat";
@@ -61,13 +61,14 @@ export default function GenerateCustomPosterButton({
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
-        color="secondary"
+        variant="contained"
+        size="medium"
+        style={{ backgroundColor: "#b4ecb4" }}
         onClick={() => {
           if (validateSteps()) setRedirect(true);
         }}
       >
-        Generate Poster
+        <Typography style={{ fontSize: 16 }}>Generate Poster</Typography>
       </Button>
       {redirect && (
         <Redirect

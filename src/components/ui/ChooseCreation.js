@@ -6,18 +6,18 @@ import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined"
 import { useTheme } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   pinkButton: {
-    color: theme.palette.common.pink,
-    borderColor: theme.palette.common.pink,
+    color: "black",
+    borderColor: "black",
     borderStyle: "dashed",
     padding: "40px",
     borderWidth: "3px",
   },
 
   blueButton: {
-    color: theme.palette.common.blue,
-    borderColor: theme.palette.common.blue,
+    color: "black",
+    borderColor: "black",
     borderStyle: "dashed",
     padding: "40px",
     borderWidth: "3px",
@@ -37,13 +37,11 @@ export default function ChooseCreation() {
         paddingTop: "200px",
         paddingBottom: "200px",
         minHeight: "100vh",
+        position: "absolute",
       }}
       spacing={5}
       justify="center"
     >
-      <Grid item>
-        <Typography variant="h2">Choose your creation:</Typography>
-      </Grid>
       <Grid
         container
         item

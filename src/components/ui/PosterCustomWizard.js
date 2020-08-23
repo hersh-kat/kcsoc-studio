@@ -50,7 +50,7 @@ export default function PosterCustomWizard() {
         next={next}
         prev={prev}
         currentStep={currentStep}
-        endAt={4}
+        endAt={5}
       />
       <TransitionGroup
         childFactory={(child) => React.cloneElement(child)}
@@ -119,6 +119,7 @@ export default function PosterCustomWizard() {
               setInstagramInputError={setInstagramInputError}
               setFacebookInputError={setFacebookInputError}
               setURLError={setURLError}
+              setTitleError={setTitleError}
               setStep={setCurrentStep}
             />
           }

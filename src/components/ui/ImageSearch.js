@@ -4,8 +4,28 @@ import { useState } from "react";
 import ImageWall from "./ImageWall";
 import _ from "lodash";
 import "../../css/animations.css";
-import { Grid, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  makeStyles,
+} from "@material-ui/core";
 import { CSSTransition } from "react-transition-group";
+
+const useStyles = makeStyles((theme) => ({
+  titleCard: {
+    minWidth: 300,
+    maxHeight: 60,
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelBlue,
+  },
+  inputCard: {
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelPink,
+    minWidth: 750,
+  },
+}));
 
 export default function ImageSearch({
   currentStep,
@@ -19,6 +39,7 @@ export default function ImageSearch({
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const classes = useStyles();
 
   async function loadMoreImages() {
     var url = "https://pixabay.com/api/?key=***REMOVED***";
@@ -91,7 +112,11 @@ export default function ImageSearch({
       key="loaded"
     >
       <Grid item>
-        <Typography variant="h2">1. Choose your event</Typography>
+        <Card className={classes.titleCard}>
+          <CardContent>
+            <Typography variant="h2">1. Choose your event</Typography>
+          </CardContent>
+        </Card>
         <Typography
           variant="body1"
           style={
@@ -152,7 +177,8 @@ async function getImageResults(query, setImages, page, setPage) {
   setImages([]);
   var url = "https://pixabay.com/api/?key=***REMOVED***";
   const queryAPI = query.replace(" ", "+");
-  var otherVars = "&image_type=photo&orientation=horizontal&page=" + page;
+  var otherVars =
+    "&image_type=photo&safesearch=true&orientation=horizontal&page=" + page;
   url += "&q=" + queryAPI + otherVars;
   const data = await (await fetch(url)).json();
   const filter = data.hits.map(

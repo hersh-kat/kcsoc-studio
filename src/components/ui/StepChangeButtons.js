@@ -4,20 +4,24 @@ import { ButtonGroup, IconButton, Grid } from "@material-ui/core";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 700,
     flexGrow: 1,
   },
   progress: {
-    backgroundColor: "rgba(112, 237, 255, 0.4)",
+    backgroundColor: theme.palette.common.lightGreenDisabled,
   },
-});
+  buttonGroup: {
+    backgroundColor: theme.palette.common.lightGrey,
+    height: 30,
+  },
+}));
 
 export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
   const classes = useStyles();
-
   return (
     <Grid container direction="row" alignItems="center">
       <Grid item>
@@ -33,11 +37,7 @@ export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
         />
       </Grid>
       <Grid item>
-        <ButtonGroup
-          aria-label="outlined secondary button group"
-          color="inherit"
-          style={{ backgroundColor: "rgb(34,48, 64)", height: 30 }}
-        >
+        <ButtonGroup className={classes.buttonGroup} color="inherit">
           <IconButton
             aria-label="next"
             size="small"

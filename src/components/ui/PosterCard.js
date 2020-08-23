@@ -11,6 +11,7 @@ import CreateIcon from "@material-ui/icons/Create";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    backgroundColor: "rgb(253, 234, 252)",
     maxWidth: 345,
     "&:hover": {
       "& $media": {
@@ -80,7 +81,7 @@ export default function PosterCard({
           <CreateIcon htmlColor="white" />
         </Grid>
         <Grid item>
-          <Typography>Use Template</Typography>
+          <Typography style={{ color: "white" }}>Use Template</Typography>
         </Grid>
       </Grid>
       <CardContent>

@@ -12,7 +12,7 @@ import TagsInput from "./TagsInput";
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
   const [tagsError, setTagsError] = useState(false);
   const [locationLine1, setLocationLine1] = useState("");
   const [locationLine2, setLocationLine2] = useState("");

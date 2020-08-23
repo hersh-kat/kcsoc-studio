@@ -30,11 +30,6 @@ export default function PosterStep1() {
       }}
       justify="center"
     >
-      <Grid item style={{ marginBottom: "100px" }}>
-        <Grid item>
-          <Typography variant="h2">1. Choose your setup</Typography>
-        </Grid>
-      </Grid>
       <Grid
         item
         container
@@ -45,16 +40,24 @@ export default function PosterStep1() {
       >
         <Grid item>
           <Link to="/create/poster/template" style={{ textDecoration: "none" }}>
-            <Button variant="outlined" color="secondary" size="large">
-              Use Poster Template
+            <Button
+              variant="contained"
+              size="large"
+              style={{ backgroundColor: "rgb(226, 242, 251)" }}
+            >
+              <Typography>Use Poster Template</Typography>
             </Button>
           </Link>
         </Grid>
 
         <Grid item>
           <Link to="/create/poster/custom" style={{ textDecoration: "none" }}>
-            <Button variant="outlined" color="secondary" size="large">
-              Create Custom Poster
+            <Button
+              variant="contained"
+              size="large"
+              style={{ backgroundColor: "rgb(226, 242, 251)" }}
+            >
+              <Typography>Create Custom Poster</Typography>
             </Button>
           </Link>
         </Grid>

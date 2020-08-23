@@ -1,9 +1,23 @@
-import React, { useState } from "react";
-import { Grid, Typography, Button } from "@material-ui/core";
+import React from "react";
+import { Grid, Typography, Button, Card, CardContent } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import CheckIcon from "@material-ui/icons/Check";
 import { CSSTransition } from "react-transition-group";
+
+const useStyles = makeStyles((theme) => ({
+  titleCard: {
+    minWidth: 300,
+    maxHeight: 60,
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelBlue,
+  },
+  inputCard: {
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelPink,
+    minWidth: 750,
+  },
+}));
 
 export default function PosterTemplateSocialMedia({
   currentStep,
@@ -18,6 +32,8 @@ export default function PosterTemplateSocialMedia({
   setFacebookInputError,
   facebookInputError,
 }) {
+  const classes = useStyles();
+
   return (
     <CSSTransition
       key={showOnStep}
@@ -35,57 +51,77 @@ export default function PosterTemplateSocialMedia({
         style={{ position: "absolute" }}
       >
         <Grid item>
-          <Typography variant="h2">
-            {" "}
-            {currentStep}. Enter your KCSOC's social media tags
-          </Typography>
+          <Card className={classes.titleCard}>
+            <CardContent>
+              <Typography variant="h2">
+                {" "}
+                {currentStep}. Enter your KCSOC's social media tags.
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item>
-          <TextField
-            autoFocus
-            error={facebookInputError}
-            helperText={facebookInputError ? "Please fill this in." : ""}
-            color="secondary"
-            id="facebook-handle"
-            label="Facebook Handle"
-            placeholder="@kcsocnational"
-            value={facebookHandle}
-            onChange={(event) => {
-              setFacebookHandle(event.target.value);
-              setFacebookInputError(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.keyCode == 13) {
-                if (facebookHandle.length == 0) setFacebookInputError(true);
-                if (instaHandle.length == 0) setInstagramInputError(true);
-                if (facebookHandle.length > 0 && instaHandle.length > 0)
-                  setStep(currentStep + 1);
-              }
-            }}
-          />
+          <Card className={classes.inputCard}>
+            <CardContent>
+              <TextField
+                autoFocus
+                fullWidth
+                error={facebookInputError}
+                helperText={facebookInputError ? "Please fill this in." : ""}
+                color="secondary"
+                id="facebook-handle"
+                label="Facebook Handle"
+                placeholder="@kcsocnational"
+                value={facebookHandle}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(event) => {
+                  setFacebookHandle(event.target.value);
+                  setFacebookInputError(false);
+                }}
+                onKeyDown={(event) => {
+                  if (event.keyCode == 13) {
+                    if (facebookHandle.length == 0) setFacebookInputError(true);
+                    if (instaHandle.length == 0) setInstagramInputError(true);
+                    if (facebookHandle.length > 0 && instaHandle.length > 0)
+                      setStep(currentStep + 1);
+                  }
+                }}
+              />
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item>
-          <TextField
-            error={instagramInputError}
-            helperText={instagramInputError ? "Please fill this in." : ""}
-            color="secondary"
-            id="instagram-handle"
-            label="Instagram Handle"
-            placeholder="@kcsocnational"
-            value={instaHandle}
-            onChange={(event) => {
-              setInstaHandle(event.target.value);
-              setInstagramInputError(false);
-            }}
-            onKeyDown={(event) => {
-              if (event.keyCode == 13) {
-                if (facebookHandle.length == 0) setFacebookInputError(true);
-                if (instaHandle.length == 0) setInstagramInputError(true);
-                if (facebookHandle.length > 0 && instaHandle.length > 0)
-                  setStep(currentStep + 1);
-              }
-            }}
-          />
+          <Card className={classes.inputCard}>
+            <CardContent>
+              <TextField
+                fullWidth
+                error={instagramInputError}
+                helperText={instagramInputError ? "Please fill this in." : ""}
+                color="secondary"
+                id="instagram-handle"
+                label="Instagram Handle"
+                placeholder="@kcsocnational"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={instaHandle}
+                onChange={(event) => {
+                  setInstaHandle(event.target.value);
+                  setInstagramInputError(false);
+                }}
+                onKeyDown={(event) => {
+                  if (event.keyCode == 13) {
+                    if (facebookHandle.length == 0) setFacebookInputError(true);
+                    if (instaHandle.length == 0) setInstagramInputError(true);
+                    if (facebookHandle.length > 0 && instaHandle.length > 0)
+                      setStep(currentStep + 1);
+                  }
+                }}
+              />
+            </CardContent>
+          </Card>
         </Grid>
         <CSSTransition
           timeout={400}
@@ -107,8 +143,8 @@ export default function PosterTemplateSocialMedia({
                   <Button
                     variant="contained"
                     startIcon={<CheckIcon />}
+                    style={{ backgroundColor: "rgb(237, 237, 237)" }}
                     color="inherit"
-                    style={{ backgroundColor: "rgb(34,48, 64)" }}
                     onClick={() => {
                       setStep(currentStep + 1);
                     }}

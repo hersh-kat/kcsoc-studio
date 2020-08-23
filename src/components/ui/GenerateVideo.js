@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 
 //Returns an array of video links. Always of size 6.
-async function getPexelVideos(tags) {
-  const queries = tags.split(",");
+async function getPexelVideos(queries) {
   const vidLinks = [];
   const perPage = 25;
   const linksPerWord = 6 / queries.length;

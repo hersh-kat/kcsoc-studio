@@ -6,6 +6,8 @@ import {
   useMediaQuery,
   MenuItem,
   InputLabel,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { Dropbox, DropboxBase } from "dropbox";
@@ -27,6 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fill: "white",
+  },
+  titleCard: {
+    minWidth: 300,
+    maxHeight: 60,
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelBlue,
+  },
+  inputCard: {
+    display: "inline-block",
+    backgroundColor: theme.palette.common.pastelPink,
+    minWidth: 750,
   },
 }));
 
@@ -149,7 +162,11 @@ export default function PosterStep1({
         key="loaded"
       >
         <Grid item>
-          <Typography variant="h2">1. Choose your event</Typography>
+          <Card className={classes.titleCard}>
+            <CardContent>
+              <Typography variant="h2">1. Choose your KCSOC event</Typography>
+            </CardContent>
+          </Card>
           <Typography
             variant="body1"
             style={

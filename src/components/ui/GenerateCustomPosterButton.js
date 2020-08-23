@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
 import dateFormat from "dateformat";
@@ -15,6 +15,7 @@ export default function GenerateCustomPosterButton({
   setLocationLine2Error,
   setFacebookInputError,
   setInstagramInputError,
+  setTitleError,
   setURLError,
   setStep,
   date,
@@ -24,34 +25,40 @@ export default function GenerateCustomPosterButton({
     var goToNextPage = true;
 
     if (isNaN(date)) {
-      setStep(4);
+      setStep(5);
       goToNextPage = false;
     }
 
     if (isNaN(time)) {
-      setStep(4);
+      setStep(5);
       goToNextPage = false;
     }
 
     if (locationLine1 == "") {
       setLocationLine1Error(true);
-      setStep(3);
+      setStep(4);
       goToNextPage = false;
     }
 
     if (locationLine2 == "") {
       setLocationLine2Error(true);
-      setStep(3);
+      setStep(4);
       goToNextPage = false;
     }
     if (facebookHandle == "") {
       setFacebookInputError(true);
-      setStep(2);
+      setStep(3);
       goToNextPage = false;
     }
 
     if (instaHandle == "") {
       setInstagramInputError(true);
+      setStep(3);
+      goToNextPage = false;
+    }
+
+    if (title == "") {
+      setTitleError(true);
       setStep(2);
       goToNextPage = false;
     }
@@ -70,13 +77,14 @@ export default function GenerateCustomPosterButton({
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
-        color="secondary"
+        variant="contained"
+        size="medium"
+        style={{ backgroundColor: "#b4ecb4" }}
         onClick={() => {
           if (validateSteps()) setRedirect(true);
         }}
       >
-        Generate Poster
+        <Typography style={{ fontSize: 16 }}>Generate Poster</Typography>
       </Button>
       {redirect && (
         <Redirect

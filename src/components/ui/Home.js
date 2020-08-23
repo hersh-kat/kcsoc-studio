@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@material-ui/core";
 import graphicDesignLogo from "../../assets/website-design.png";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import BrushIcon from "@material-ui/icons/Brush";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
@@ -17,7 +17,17 @@ export default function Hero() {
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Grid container direction="column" spacing={5} alignItems="center">
+    <Grid
+      container
+      direction="column"
+      spacing={5}
+      alignItems="center"
+      style={{
+        paddingBottom: "200px",
+        minHeight: "100vh",
+        position: "absolute",
+      }}
+    >
       <Grid
         container
         item
@@ -30,7 +40,7 @@ export default function Hero() {
           <img src={appLogo} />
         </Grid>
         <Grid item>
-          <img src={textLogo} />
+          <img style={{ WebkitFilter: "invert(100%)" }} src={textLogo} />
         </Grid>
       </Grid>
       <Grid
@@ -41,7 +51,10 @@ export default function Hero() {
         style={{ minHeight: "60vh" }}
       >
         <Grid item xs={12} md={3}>
-          <img src={graphicDesignLogo} />
+          <img
+            style={{ "-webkit-filter": "invert(100%)" }}
+            src={graphicDesignLogo}
+          />
         </Grid>
         <Grid item xs style={{ marginLeft: "40px" }}>
           <Typography>
@@ -63,11 +76,12 @@ export default function Hero() {
       <Grid item>
         <Link to="/create" style={{ textDecoration: "none" }}>
           <Button
-            variant="outlined"
-            color="secondary"
-            startIcon={<KeyboardArrowDownIcon />}
+            variant="contained"
+            size="large"
+            style={{ backgroundColor: "rgb(226, 242, 251)" }}
+            startIcon={<BrushIcon />}
           >
-            Begin Creating
+            <Typography>Begin Creating</Typography>
           </Button>
         </Link>
       </Grid>

@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import theme from "./ui/Theme";
 import Home from "./ui/Home";
 import ChooseCreation from "./ui/ChooseCreation";
@@ -14,11 +15,25 @@ import "../css/animations.css";
 import PosterCustomWizard from "./ui/PosterCustomWizard";
 import GenerateVideo from "./ui/GenerateVideo";
 import VideoWizard from "./ui/VideoWizard";
+import backgroundImage from "../assets/background.png";
+
+const useStyles = makeStyles((theme) => ({
+  bgImage: {
+    position: "absolute",
+    backgroundImage: "url(" + backgroundImage + ")",
+    height: "100%",
+    width: "100%",
+    opacity: 0.1,
+  },
+}));
 
 function App() {
+  const styles = useStyles();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
+        <div className={styles.bgImage}></div>
         <Container style={{ position: "relative" }}>
           <Route
             exact

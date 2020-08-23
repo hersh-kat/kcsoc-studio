@@ -30,7 +30,8 @@ export default function AutoCompleteSearchBar({
             {...params}
             label="Search"
             margin="normal"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
             value={query}
             onKeyDown={(e) => {
               if (e.key === "Enter")
