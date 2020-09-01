@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       maxHeight: 80,
     },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 260,
+      maxHeight: 100,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -26,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.pastelPink,
     [theme.breakpoints.down("sm")]: {
       minWidth: 400,
+    },
+    [theme.breakpoints.down("xs")]: {
+      minWidth: 350,
     },
     minWidth: 750,
   },
@@ -47,7 +54,7 @@ export default function PosterTemplateLocation({
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const mdMatches = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <CSSTransition
       key={3}
@@ -79,7 +86,7 @@ export default function PosterTemplateLocation({
           <Card className={classes.inputCard}>
             <CardContent>
               <TextField
-                autoFocus
+                autoFocus={mdMatches ? false : true}
                 fullWidth
                 error={locationLine1Error}
                 helperText={locationLine1Error ? "Please fill this in." : ""}

@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       minWidth: 400,
     },
+    [theme.breakpoints.down("xs")]: {
+      minWidth: 350,
+    },
     minWidth: 750,
   },
 }));
@@ -40,6 +43,7 @@ export default function TitleInput({
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdMatches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <CSSTransition
@@ -53,8 +57,8 @@ export default function TitleInput({
         item
         container
         direction="column"
-        spacing={4}
         justify="center"
+        spacing={4}
         alignItems={matches ? "center" : undefined}
         style={{ position: "absolute" }}
       >
@@ -72,7 +76,7 @@ export default function TitleInput({
           <Card className={classes.inputCard}>
             <CardContent>
               <TextField
-                autoFocus
+                autoFocus={mdMatches ? false : true}
                 fullWidth
                 error={titleError}
                 helperText={titleError ? "Please fill this in." : ""}

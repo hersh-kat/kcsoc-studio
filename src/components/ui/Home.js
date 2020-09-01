@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Hero() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const xsMatches = useMediaQuery(theme.breakpoints.down("xs"));
   const classes = useStyles();
   return (
     <Grid
@@ -52,6 +53,7 @@ export default function Hero() {
             alt="Text logo"
             style={{ WebkitFilter: "invert(100%)" }}
             src={textLogo}
+            width={xsMatches ? 380 : 480}
           />
         </Grid>
       </Grid>

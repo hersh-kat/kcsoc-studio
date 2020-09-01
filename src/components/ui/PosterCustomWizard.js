@@ -39,7 +39,7 @@ export default function PosterCustomWizard() {
       container
       direction="column"
       style={{
-        position: "fixed",
+        position: "absolute",
         paddingTop: "20vh",
       }}
       justify="center"

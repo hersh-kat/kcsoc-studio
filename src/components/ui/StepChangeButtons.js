@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: 400,
     },
+    [theme.breakpoints.down("xs")]: {
+      width: 350,
+    },
     flexGrow: 1,
   },
   progress: {

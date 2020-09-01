@@ -3,8 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useState } from "react";
 import jsonp from "jsonp";
-import { makeStyles } from "@material-ui/styles";
-import { Card, CardContent } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/styles";
+import { Card, CardContent, useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   inputCard: {
@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.pastelPink,
     [theme.breakpoints.down("sm")]: {
       minWidth: 400,
+    },
+    [theme.breakpoints.down("xs")]: {
+      minWidth: 350,
     },
     minWidth: 750,
   },
@@ -27,6 +30,8 @@ export default function AutoCompleteSearchBar({
 }) {
   const [results, setResults] = useState([]);
   const classes = useStyles();
+  const theme = useTheme();
+  const mdMatches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <React.Fragment>
@@ -37,7 +42,6 @@ export default function AutoCompleteSearchBar({
             options={results.map((option) => option.term)}
             renderInput={(params) => (
               <TextField
-                autoFocus
                 fullWidth
                 {...params}
                 label="Search"

@@ -1,5 +1,13 @@
 import React from "react";
-import { Grid, Typography, Button, Card, CardContent } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import { CSSTransition } from "react-transition-group";
 import { makeStyles } from "@material-ui/styles";
@@ -13,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       maxHeight: 80,
     },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 260,
+      maxHeight: 100,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -21,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.pastelPink,
     [theme.breakpoints.down("sm")]: {
       minWidth: 400,
+    },
+    [theme.breakpoints.down("xs")]: {
+      minWidth: 350,
     },
     minWidth: 750,
   },
@@ -40,6 +55,9 @@ export default function TagsInput({
 }) {
   const classes = useStyles();
   const [maxTagsError, setMaxTagsError] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdMatches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <CSSTransition
@@ -53,8 +71,9 @@ export default function TagsInput({
         item
         container
         direction="column"
-        spacing={4}
+        alignItems={matches ? "center" : undefined}
         justify="center"
+        spacing={4}
         style={{ position: "absolute" }}
       >
         <Grid item>
@@ -72,7 +91,7 @@ export default function TagsInput({
           <Card className={classes.inputCard}>
             <CardContent>
               <ChipInput
-                autoFocus
+                autoFocus={mdMatches ? false : true}
                 fullWidth
                 color="secondary"
                 placeholder="Meditation, yoga, happy"

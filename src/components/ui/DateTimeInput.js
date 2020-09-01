@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       maxHeight: 80,
     },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 260,
+      maxHeight: 100,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -35,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.pastelPink,
     [theme.breakpoints.down("sm")]: {
       minWidth: 400,
+    },
+    [theme.breakpoints.down("xs")]: {
+      minWidth: 350,
     },
     minWidth: 750,
   },
@@ -92,6 +99,7 @@ export default function DateTimeInput({
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdMatches = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <React.Fragment>
@@ -127,7 +135,7 @@ export default function DateTimeInput({
                 <CardContent>
                   <ThemeProvider theme={materialTheme}>
                     <KeyboardDatePicker
-                      autoFocus
+                      autoFocus={mdMatches ? false : true}
                       format="dd/MM/yyyy"
                       value={date2}
                       onChange={(newValue) => {
