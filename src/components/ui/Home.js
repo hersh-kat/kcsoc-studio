@@ -11,20 +11,30 @@ import {
 import graphicDesignLogo from "../../assets/website-design.png";
 import BrushIcon from "@material-ui/icons/Brush";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: "rgb(226, 242, 251)",
+    [theme.breakpoints.down("md")]: {
+      marginTop: "20px",
+      marginBottom: "20px",
+    },
+  },
+}));
 
 export default function Hero() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const classes = useStyles();
   return (
     <Grid
       container
       direction="column"
-      spacing={5}
+      spacing={4}
       alignItems="center"
-      style={{
-        position: "absolute",
-      }}
+      justify="center"
+      style={{ position: "absolute" }}
     >
       <Grid
         container
@@ -35,10 +45,14 @@ export default function Hero() {
         style={{ paddingTop: "60px" }}
       >
         <Grid item>
-          <img src={appLogo} width={150} />
+          <img alt="App logo" src={appLogo} width={150} />
         </Grid>
         <Grid item>
-          <img style={{ WebkitFilter: "invert(100%)" }} src={textLogo} />
+          <img
+            alt="Text logo"
+            style={{ WebkitFilter: "invert(100%)" }}
+            src={textLogo}
+          />
         </Grid>
       </Grid>
       <Grid
@@ -50,7 +64,8 @@ export default function Hero() {
       >
         <Grid item xs={12} md={3}>
           <img
-            style={{ "-webkit-filter": "invert(100%)" }}
+            alt="Graphic design icon"
+            style={{ WebkitFilter: "invert(100%)" }}
             src={graphicDesignLogo}
           />
         </Grid>
@@ -74,9 +89,9 @@ export default function Hero() {
       <Grid item>
         <Link to="/create" style={{ textDecoration: "none" }}>
           <Button
+            className={classes.button}
             variant="contained"
             size="large"
-            style={{ backgroundColor: "rgb(226, 242, 251)" }}
             startIcon={<BrushIcon />}
           >
             <Typography>Begin Creating</Typography>

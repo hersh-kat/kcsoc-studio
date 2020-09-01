@@ -49,7 +49,7 @@ export default function PosterTemplateSocialMedia({
   return (
     <CSSTransition
       key={showOnStep}
-      in={currentStep == showOnStep}
+      in={currentStep === showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -60,7 +60,7 @@ export default function PosterTemplateSocialMedia({
         direction="column"
         spacing={4}
         justify="center"
-        alignItems={matches ? "center" : ""}
+        alignItems={matches ? "center" : undefined}
         style={{ position: "absolute" }}
       >
         <Grid item>
@@ -94,9 +94,10 @@ export default function PosterTemplateSocialMedia({
                   setFacebookInputError(false);
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (facebookHandle.length == 0) setFacebookInputError(true);
-                    if (instaHandle.length == 0) setInstagramInputError(true);
+                  if (event.keyCode === 13) {
+                    if (facebookHandle.length === 0)
+                      setFacebookInputError(true);
+                    if (instaHandle.length === 0) setInstagramInputError(true);
                     if (facebookHandle.length > 0 && instaHandle.length > 0)
                       setStep(currentStep + 1);
                   }
@@ -125,9 +126,10 @@ export default function PosterTemplateSocialMedia({
                   setInstagramInputError(false);
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (facebookHandle.length == 0) setFacebookInputError(true);
-                    if (instaHandle.length == 0) setInstagramInputError(true);
+                  if (event.keyCode === 13) {
+                    if (facebookHandle.length === 0)
+                      setFacebookInputError(true);
+                    if (instaHandle.length === 0) setInstagramInputError(true);
                     if (facebookHandle.length > 0 && instaHandle.length > 0)
                       setStep(currentStep + 1);
                   }

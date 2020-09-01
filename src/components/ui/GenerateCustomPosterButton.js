@@ -34,36 +34,36 @@ export default function GenerateCustomPosterButton({
       goToNextPage = false;
     }
 
-    if (locationLine1 == "") {
+    if (locationLine1 === "") {
       setLocationLine1Error(true);
       setStep(4);
       goToNextPage = false;
     }
 
-    if (locationLine2 == "") {
+    if (locationLine2 === "") {
       setLocationLine2Error(true);
       setStep(4);
       goToNextPage = false;
     }
-    if (facebookHandle == "") {
+    if (facebookHandle === "") {
       setFacebookInputError(true);
       setStep(3);
       goToNextPage = false;
     }
 
-    if (instaHandle == "") {
+    if (instaHandle === "") {
       setInstagramInputError(true);
       setStep(3);
       goToNextPage = false;
     }
 
-    if (title == "") {
+    if (title === "") {
       setTitleError(true);
       setStep(2);
       goToNextPage = false;
     }
 
-    if (url == "") {
+    if (url === "") {
       setURLError(true);
       setStep(1);
       goToNextPage = false;

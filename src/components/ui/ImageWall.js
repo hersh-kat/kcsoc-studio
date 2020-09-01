@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
     overflow: "hidden",
     //backgroundColor: theme.palette.background.paper,
   },
@@ -17,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       width: (640 / 2) * 2,
     },
+    [theme.breakpoints.down("sm")]: {
+      width: 640 / 2,
+    },
     width: (640 / 2) * 3,
+    height: 420 * 2,
   },
 
   gridListTile: {
@@ -65,12 +68,14 @@ export default function ImageWall({
   const classes = useStyles();
   const theme = useTheme();
   const mdMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <div className={classes.root}>
       <GridList
         cellHeight={426 / 2}
         className={classes.gridList}
-        cols={mdMatch ? 2 : 3}
+        cols={smMatch ? 1 : mdMatch ? 2 : 3}
         onScroll={onScrollHandler}
       >
         {images.map((tile) => (

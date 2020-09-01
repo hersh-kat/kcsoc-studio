@@ -14,7 +14,7 @@ export default function OkayButton({ setStep, currentStep }) {
       direction="row"
       spacing={2}
       alignItems="center"
-      justify={matches ? "center" : ""}
+      justify={matches ? "center" : undefined}
     >
       <Grid item>
         <Button
@@ -30,7 +30,7 @@ export default function OkayButton({ setStep, currentStep }) {
         </Button>
       </Grid>
       <Grid item>
-        <Typography variant="p">
+        <Typography style={{ fontSize: 16 }}>
           Press <b>Enter ↵</b>
         </Typography>
       </Grid>

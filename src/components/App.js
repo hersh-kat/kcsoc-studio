@@ -18,7 +18,7 @@ import VideoWizard from "./ui/VideoWizard";
 import backgroundImage from "../assets/background.png";
 import AppBarHeader from "./ui/AppBarHeader";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bgImage: {
     position: "absolute",
     backgroundImage: "url(" + backgroundImage + ")",

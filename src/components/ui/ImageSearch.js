@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   titleCard: {
     minWidth: 300,
     maxHeight: 60,
+    [theme.breakpoints.down("md")]: {
+      maxHeight: 90,
+      maxWidth: 400,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -41,7 +45,10 @@ export default function ImageSearch({
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   async function loadMoreImages() {
-    var url = "https://pixabay.com/api/?key=***REMOVED***";
+    var url =
+      "https://pixabay.com/api/?key=" +
+      `${process.env.REACT_APP_PIXABAY_API_KEY}`;
+    console.log(url);
     const queryAPI = query.replace(" ", "+");
     var otherVars =
       "&image_type=photo&orientation=horizontal&page=" + (page + 1);
@@ -107,7 +114,7 @@ export default function ImageSearch({
       direction="column"
       spacing={4}
       justify="center"
-      alignItems={matches ? "center" : ""}
+      alignItems={matches ? "center" : undefined}
       style={{ position: "absolute" }}
       key="loaded"
     >
@@ -164,7 +171,7 @@ export default function ImageSearch({
   return (
     <CSSTransition
       key={showOnStep}
-      in={currentStep == showOnStep}
+      in={currentStep === showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -177,7 +184,9 @@ export default function ImageSearch({
 async function getImageResults(query, setImages, page, setPage) {
   setPage(1);
   setImages([]);
-  var url = "https://pixabay.com/api/?key=***REMOVED***";
+  var url =
+    "https://pixabay.com/api/?key=" +
+    `${process.env.REACT_APP_PIXABAY_API_KEY}`;
   const queryAPI = query.replace(" ", "+");
   var otherVars =
     "&image_type=photo&safesearch=true&orientation=horizontal&page=" + page;
@@ -210,6 +219,6 @@ async function getImageResults(query, setImages, page, setPage) {
       id,
     })
   );
-  console.log(filter);
+  //console.log(filter);
   setImages(filter);
 }

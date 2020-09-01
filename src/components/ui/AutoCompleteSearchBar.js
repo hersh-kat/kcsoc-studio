@@ -66,7 +66,7 @@ export default function AutoCompleteSearchBar({
 }
 
 function getResults(query, setResults) {
-  if (query == "") return;
+  if (query === "") return;
 
   jsonp(
     "https://autocomplete.fotolia.com/?callback=getData&language_id=2&query=" +

@@ -39,10 +39,11 @@ export default function PosterCustomWizard() {
       container
       direction="column"
       style={{
-        position: "absolute",
+        position: "fixed",
         paddingTop: "20vh",
       }}
       justify="center"
+      spacing={0}
     >
       <StepChangeButtons
         next={next}

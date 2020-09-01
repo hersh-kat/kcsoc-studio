@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
   titleCard: {
     minWidth: 300,
     maxHeight: 60,
+    [theme.breakpoints.down("md")]: {
+      maxHeight: 80,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -48,7 +51,7 @@ export default function PosterTemplateLocation({
   return (
     <CSSTransition
       key={3}
-      in={currentStep == showOnStep}
+      in={currentStep === showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -59,7 +62,7 @@ export default function PosterTemplateLocation({
         direction="column"
         spacing={4}
         justify="center"
-        alignItems={matches ? "center" : ""}
+        alignItems={matches ? "center" : undefined}
         style={{ position: "absolute" }}
       >
         <Grid item>
@@ -93,9 +96,9 @@ export default function PosterTemplateLocation({
                   setLocationLine1Error(false);
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (locationLine1.length == 0) setLocationLine1Error(true);
-                    if (locationLine2.length == 0) setLocationLine2Error(true);
+                  if (event.keyCode === 13) {
+                    if (locationLine1.length === 0) setLocationLine1Error(true);
+                    if (locationLine2.length === 0) setLocationLine2Error(true);
                     if (locationLine1.length > 0 && locationLine2.length > 0)
                       setStep(currentStep + 1);
                   }
@@ -124,9 +127,9 @@ export default function PosterTemplateLocation({
                   setLocationLine2Error(false);
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (locationLine1.length == 0) setLocationLine1Error(true);
-                    if (locationLine2.length == 0) setLocationLine2Error(true);
+                  if (event.keyCode === 13) {
+                    if (locationLine1.length === 0) setLocationLine1Error(true);
+                    if (locationLine2.length === 0) setLocationLine2Error(true);
                     if (locationLine1.length > 0 && locationLine2.length > 0)
                       setStep(currentStep + 1);
                   }

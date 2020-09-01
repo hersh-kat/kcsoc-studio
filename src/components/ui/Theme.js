@@ -11,6 +11,13 @@ const offWhite = "#e5ddd5";
 const pastelBlue = "rgb(226, 242, 251)";
 const pastelPink = "rgb(253, 234, 252)";
 export default createMuiTheme({
+  overrides: {
+    MuiGrid: {
+      container: {
+        width: "100% !important",
+      },
+    },
+  },
   palette: {
     common: {
       blue: lightBlue,

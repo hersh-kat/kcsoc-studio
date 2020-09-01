@@ -1,20 +1,9 @@
 import React from "react";
-import {
-  Grid,
-  Typography,
-  Button,
-  makeStyles,
-  useMediaQuery,
-} from "@material-ui/core";
+import { Grid, Typography, Button, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  buttons: {},
-}));
-
 export default function PosterStep1() {
-  const styles = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -22,6 +11,7 @@ export default function PosterStep1() {
     <Grid
       container
       direction="column"
+      spacing={4}
       style={{
         minHeight: "90vh",
         position: "absolute",

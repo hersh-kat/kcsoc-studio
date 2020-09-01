@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   titleCard: {
     minWidth: 300,
     maxHeight: 60,
+    [theme.breakpoints.down("md")]: {
+      maxHeight: 80,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
@@ -31,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelPink,
     [theme.breakpoints.down("sm")]: {
-      maxWidth: 350,
+      minWidth: 400,
     },
-    maxWidth: 350,
+    minWidth: 750,
   },
 }));
 
@@ -72,11 +75,6 @@ const materialTheme = createMuiTheme({
         color: lightBlue["900"],
       },
     },
-    MuiPickersModal: {
-      dialogAction: {
-        color: lightBlue["400"],
-      },
-    },
   },
 });
 
@@ -99,7 +97,7 @@ export default function DateTimeInput({
     <React.Fragment>
       <CSSTransition
         key={showOnStep}
-        in={currentStep == showOnStep}
+        in={currentStep === showOnStep}
         timeout={400}
         classNames={"move"}
         unmountOnExit
@@ -109,7 +107,7 @@ export default function DateTimeInput({
           container
           spacing={4}
           justify="center"
-          alignItems={matches ? "center" : ""}
+          alignItems={matches ? "center" : undefined}
           style={{ position: "absolute" }}
           direction="column"
         >

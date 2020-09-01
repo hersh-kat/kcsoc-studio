@@ -1,15 +1,13 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/styles";
 import { Grid } from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "rgb(253, 234, 252)",
     maxWidth: 345,
@@ -22,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
         opacity: 1,
       },
     },
-    paddingBottom: "15px",
   },
   media: {
     transition: "all 0.2s",

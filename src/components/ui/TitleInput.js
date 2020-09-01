@@ -44,7 +44,7 @@ export default function TitleInput({
   return (
     <CSSTransition
       key={2}
-      in={currentStep == 2}
+      in={currentStep === 2}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -55,7 +55,7 @@ export default function TitleInput({
         direction="column"
         spacing={4}
         justify="center"
-        alignItems={matches ? "center" : ""}
+        alignItems={matches ? "center" : undefined}
         style={{ position: "absolute" }}
       >
         <Grid item>
@@ -89,9 +89,9 @@ export default function TitleInput({
                   setTitleError(false);
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (title.length == 0) setTitleError(true);
-                    if (title.length == 0) setTitleError(true);
+                  if (event.keyCode === 13) {
+                    if (title.length === 0) setTitleError(true);
+                    if (title.length === 0) setTitleError(true);
                     if (title.length > 0) setStep(currentStep + 1);
                   }
                 }}

@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Typography, Button, Card, CardContent } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import CheckIcon from "@material-ui/icons/Check";
 import { CSSTransition } from "react-transition-group";
 import { makeStyles } from "@material-ui/styles";
@@ -11,12 +10,18 @@ const useStyles = makeStyles((theme) => ({
   titleCard: {
     minWidth: 300,
     maxHeight: 60,
+    [theme.breakpoints.down("md")]: {
+      maxHeight: 80,
+    },
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
   },
   inputCard: {
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelPink,
+    [theme.breakpoints.down("sm")]: {
+      minWidth: 400,
+    },
     minWidth: 750,
   },
   ".WAMuiChipInput-underline-20.after": {
@@ -39,7 +44,7 @@ export default function TagsInput({
   return (
     <CSSTransition
       key={showOnStep}
-      in={showOnStep == currentStep}
+      in={showOnStep === currentStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit
@@ -57,8 +62,8 @@ export default function TagsInput({
             <CardContent>
               <Typography variant="h2">
                 {" "}
-                {currentStep}. Enter up to three tags for your trailer (press
-                Enter after each tag).
+                {currentStep}. Enter up to three tags for your trailer
+                (seperated by commas)
               </Typography>
             </CardContent>
           </Card>
@@ -83,7 +88,7 @@ export default function TagsInput({
                 newChipKeys={[","]}
                 newChipKeyCodes={[188]}
                 onAdd={(chip) => {
-                  if (tags.length == 3) setMaxTagsError(true);
+                  if (tags.length === 3) setMaxTagsError(true);
                   else {
                     setTags([...tags, chip]);
                     setMaxTagsError(false);
@@ -98,8 +103,8 @@ export default function TagsInput({
                   shrink: true,
                 }}
                 onKeyDown={(event) => {
-                  if (event.keyCode == 13) {
-                    if (tags.length == 0) setTagsError(true);
+                  if (event.keyCode === 13) {
+                    if (tags.length === 0) setTagsError(true);
                     else setStep(currentStep + 1);
                   }
                 }}
@@ -136,7 +141,7 @@ export default function TagsInput({
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Typography variant="p">
+                  <Typography variant="body1" style={{ fontSize: 16 }}>
                     Press <b>Enter ↵</b>
                   </Typography>
                 </Grid>

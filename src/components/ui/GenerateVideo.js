@@ -8,11 +8,9 @@ import HashLoader from "react-spinners/HashLoader";
 //Returns an array of video links. Always of size 6.
 async function getPexelVideos(queries) {
   const vidLinks = [];
-  const perPage = 25;
+  const perPage = 40;
   const linksPerWord = 6 / queries.length;
-  const client = createClient(
-    "***REMOVED***"
-  );
+  const client = createClient(`${process.env.REACT_APP_PEXELS_API_KEY}`);
 
   for (var i = 0; i < queries.length; i++) {
     const query = queries[i].trim();
@@ -271,7 +269,7 @@ async function ShotstackAPI(vidLinks, props) {
   const headers = {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "x-api-key": "***REMOVED***",
+    "x-api-key": `${process.env.REACT_APP_SHOTSTACK_STAGE_API_KEY}`,
   };
 
   const response = await fetch("https://api.shotstack.io/stage/render", {
@@ -281,12 +279,11 @@ async function ShotstackAPI(vidLinks, props) {
   });
 
   const responseJSON = await response.json();
-  if (responseJSON.success == true) return responseJSON.response.id;
-  else throw "An error occured. Video could not be generated";
+  if (responseJSON.success === true) return responseJSON.response.id;
+  else throw new Error("An error occured. Video could not be generated");
 }
 
 export default function GenerateVideo(props) {
-  const [videoLinks, setVideoLinks] = useState([]);
   const [isError, setIsError] = useState(false);
   const [videoURL, setVideoURL] = useState("");
   //const tags = "Meditate, Friends, Happy";
@@ -352,7 +349,7 @@ export default function GenerateVideo(props) {
       //validation function
       const validateResponse = (result) => {
         //console.log(result);
-        if (result.response.status == "done") return true;
+        if (result.response.status === "done") return true;
         else return false;
       };
 
@@ -380,11 +377,11 @@ export default function GenerateVideo(props) {
     }
     // Update the document title using the browser API
     fetchLinks();
-  }, []);
+  });
 
   return (
     <React.Fragment>
-      {props.location.state == null && (
+      {(props.location.state == null || isError === true) && (
         <Typography>
           Oops...Something went wrong. Please return home by clicking{" "}
           <Link to="/">here</Link>.
@@ -398,7 +395,7 @@ export default function GenerateVideo(props) {
           spacing={2}
           style={{ textAlign: "center" }}
         >
-          {videoURL == "" && (
+          {videoURL === "" && (
             <React.Fragment>
               <Grid item>
                 <Typography>
@@ -410,7 +407,7 @@ export default function GenerateVideo(props) {
               </Grid>
             </React.Fragment>
           )}
-          {videoURL != "" && (
+          {videoURL !== "" && (
             <React.Fragment>
               <Grid item>
                 <video controls autoPlay src={videoURL} type="video/mp4" />

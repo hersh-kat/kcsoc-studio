@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography, useMediaQuery } from "@material-ui/core";
 import HashLoader from "react-spinners/HashLoader";
+import { useTheme } from "@material-ui/styles";
 
 function arrayBufferToBase64(buffer) {
   var binary = "";
@@ -52,7 +53,7 @@ function linkBuilder(props) {
   var finalLink =
     link + script + script2 + script3 + script4 + script5 + script6 + script7;
   finalLink = finalLink.trim();
-  console.log(finalLink);
+  //console.log(finalLink);
   return finalLink;
 }
 
@@ -60,11 +61,13 @@ export default function GeneratePoster(props) {
   const iframeRef = useRef(null);
   const [imageData, setImageData] = useState(null);
   const [hidePhotopea, setHidePhotopea] = useState(true);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
   var n = 0;
 
   useEffect(() => {
     window.addEventListener("message", onMessage);
-  }, []);
+  });
 
   function onMessage(e) {
     //console.log("Message from Photopea: " + e.data);
@@ -72,12 +75,12 @@ export default function GeneratePoster(props) {
     if (e.data instanceof ArrayBuffer) {
       setImageData(arrayBufferToBase64(e.data));
     }
-    if (e.data == "done") {
+    if (e.data === "done") {
       n++;
-      if (n == 1) {
+      if (n === 1) {
         /* Photopea loaded! */
       }
-      if (n == 2 && iframeRef.current != null) {
+      if (n === 2 && iframeRef.current != null) {
         /* Image loaded!  Run some script! */
         var x = 'activeDocument.saveToOE("jpg")';
         iframeRef.current.contentWindow.postMessage(x, "*");
@@ -109,11 +112,17 @@ export default function GeneratePoster(props) {
             <div>
               <Grid item>
                 <img
+                  alt="Generated KCSOC Poster"
                   src={"data:image/jpg;base64," + imageData}
                   style={{ width: "50%" }}
                 />
               </Grid>
-              <Grid item container direction="row" justify="space-around">
+              <Grid
+                item
+                container
+                direction={matches ? "column" : "row"}
+                justify="space-around"
+              >
                 <Grid item>
                   <Button
                     variant="contained"

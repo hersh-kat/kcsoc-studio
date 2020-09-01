@@ -50,7 +50,7 @@ export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
                 aria-label="next"
                 size="small"
                 onClick={prev}
-                disabled={currentStep == 1 ? true : false}
+                disabled={currentStep === 1 ? true : false}
               >
                 <KeyboardArrowLeftIcon fontSize="inherit" />
               </IconButton>
@@ -58,7 +58,7 @@ export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
                 aria-label="prev"
                 size="small"
                 onClick={next}
-                disabled={currentStep == endAt ? true : false}
+                disabled={currentStep === endAt ? true : false}
               >
                 <KeyboardArrowRightIcon fontSize="inherit" />
               </IconButton>
@@ -66,7 +66,6 @@ export default function StepChangeButtons({ next, prev, currentStep, endAt }) {
           }
         />
       </Grid>
-      <Grid item></Grid>
     </Grid>
   );
 }

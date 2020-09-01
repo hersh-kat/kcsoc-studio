@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import PosterTemplateStep1 from "./PosterTemplateStep1";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import PosterTemplateSocialMedia from "./SocialMediaInput";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
 import StepChangeButtons from "./StepChangeButtons";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { TransitionGroup } from "react-transition-group";
 import "../../css/animations.css";
 import GeneratePosterButton from "./GeneratePosterButton";
-const useStyles = makeStyles((theme) => ({}));
 
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
@@ -33,13 +31,12 @@ export default function PosterTemplateWizard() {
   const prev = () => {
     setCurrentStep(currentStep - 1);
   };
-
   return (
     <React.Fragment>
       <Grid
         container
-        direction="column"
         spacing={4}
+        direction="column"
         style={{
           paddingTop: "20vh",
           position: "absolute",

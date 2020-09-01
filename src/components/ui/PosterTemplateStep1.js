@@ -12,7 +12,7 @@ import {
   GridListTile,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import { Dropbox, DropboxBase } from "dropbox";
+import { Dropbox } from "dropbox";
 import fetch from "isomorphic-fetch";
 import PosterCard from "./PosterCard";
 import Select from "@material-ui/core/Select";
@@ -100,8 +100,7 @@ async function getPostersFromAllFolders() {
 async function getPostersFromDropbox(path) {
   var dbx = new Dropbox({
     fetch: fetch,
-    accessToken:
-      "***REMOVED***",
+    accessToken: `${process.env.REACT_APP_DROPBOX_ACCESS_TOKEN}`,
   });
 
   var files = await dbx.filesListFolder({ path: path });
@@ -153,9 +152,16 @@ export default function PosterStep1({
   };
 
   let child = null;
-  if (files[0].length == 0) {
+  if (files[0].length === 0) {
     child = (
-      <Grid container direction="row" justify="center" key={"loading"}>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        key={"loading"}
+        style={{ position: "absolute" }}
+        spacing={4}
+      >
         <Grid item style={{ marginTop: "60px" }}>
           <HashLoader size={150} color={"#70edff"} loading={true} />
         </Grid>
@@ -169,8 +175,8 @@ export default function PosterStep1({
         direction="column"
         spacing={4}
         justify="center"
-        alignItems={mdMatch ? "center" : ""}
-        style={{ position: "absolute" }}
+        alignItems={mdMatch ? "center" : undefined}
+        style={{ position: "absolute", overflowY: "auto" }}
         key="loaded"
       >
         <Grid item>
@@ -216,33 +222,35 @@ export default function PosterStep1({
             <MenuItem value={2}>Other</MenuItem>
           </Select>
         </Grid>
-        <GridList
-          cols={smMatch ? 1 : mdMatch ? 2 : 3}
-          cellHeight="auto"
-          style={{
-            marginLeft: mdMatch || smMatch ? "100px" : "0px",
-          }}
-        >
-          {files[folderIndex].map(({ imageSrc, name, url }) => {
-            return (
-              <GridListTile
-                cols={1}
-                spacing={3}
-                key={name}
-                style={{ marginBottom: "15px" }}
-              >
-                <PosterCard
-                  src={imageSrc}
-                  title={name}
-                  url={url}
-                  setURL={setURL}
-                  setStep={setStep}
-                  setURLError={setURLError}
-                />
-              </GridListTile>
-            );
-          })}
-        </GridList>
+        <Grid item>
+          <GridList
+            cols={smMatch ? 1 : mdMatch ? 2 : 3}
+            cellHeight="auto"
+            style={{
+              marginLeft: mdMatch || smMatch ? "100px" : "0px",
+            }}
+          >
+            {files[folderIndex].map(({ imageSrc, name, url }) => {
+              return (
+                <GridListTile
+                  cols={1}
+                  spacing={3}
+                  key={name}
+                  style={{ marginBottom: "15px" }}
+                >
+                  <PosterCard
+                    src={imageSrc}
+                    title={name}
+                    url={url}
+                    setURL={setURL}
+                    setStep={setStep}
+                    setURLError={setURLError}
+                  />
+                </GridListTile>
+              );
+            })}
+          </GridList>
+        </Grid>
       </Grid>
     );
   }
@@ -254,7 +262,7 @@ export default function PosterStep1({
   return (
     <CSSTransition
       key={showOnStep}
-      in={currentStep == showOnStep}
+      in={currentStep === showOnStep}
       timeout={400}
       classNames={"move"}
       unmountOnExit

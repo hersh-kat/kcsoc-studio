@@ -39,7 +39,7 @@ export default function ChooseCreation() {
         minHeight: "90vh",
         position: "absolute",
       }}
-      spacing={5}
+      spacing={4}
       justify="center"
     >
       <Grid
