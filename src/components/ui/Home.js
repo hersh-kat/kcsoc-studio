@@ -71,18 +71,14 @@ export default function Hero() {
         </Grid>
         <Grid item xs style={{ marginLeft: "40px" }}>
           <Typography>
-            I'm baby you probably haven't heard of them gluten-free subway tile
-            art party deep v lo-fi. Helvetica hammock DIY, brooklyn taiyaki
-            scenester asymmetrical put a bird on it chicharrones literally
-            brunch celiac. Godard wayfarers vegan, lyft aesthetic fashion axe
-            XOXO YOLO snackwave banh mi selfies fingerstache four dollar toast
-            blog whatever. Heirloom shaman meh seitan butcher. I'm baby you
-            probably haven't heard of them gluten-free subway tile art party
-            deep v lo-fi. Helvetica hammock DIY, brooklyn taiyaki scenester
-            asymmetrical put a bird on it chicharrones literally brunch celiac.
-            Godard wayfarers vegan, lyft aesthetic fashion axe XOXO YOLO
-            snackwave banh mi selfies fingerstache four dollar toast blog
-            whatever. Heirloom shaman meh seitan butcher.
+            Welcome to KCSOC Studio (Version 1.0) - Your online marketing
+            assistant. This revolutionary tool will help you make professional,
+            high-quality posters and trailers for your local KCSOC without you
+            needing to have any photo/video editing skills whatsover! New
+            features are planned to be added soon. If you come across any bugs
+            or have some feedback, please email{" "}
+            <a href="mailto:katariahersh@gmail.com">hersh@kcsoc.com</a>. Click
+            the button below to get started!
           </Typography>
         </Grid>
       </Grid>
