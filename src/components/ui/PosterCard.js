@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 1,
       },
     },
+    paddingBottom: "15px",
   },
   media: {
     transition: "all 0.2s",

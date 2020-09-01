@@ -8,6 +8,8 @@ import {
   InputLabel,
   Card,
   CardContent,
+  GridList,
+  GridListTile,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { Dropbox, DropboxBase } from "dropbox";
@@ -40,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelPink,
     minWidth: 750,
+  },
+  root: {
+    display: "flex",
+    alignItems: "center",
+    overflow: "hidden",
+    flexWrap: "wrap",
   },
 }));
 
@@ -136,6 +144,9 @@ export default function PosterStep1({
   const classes = useStyles();
   const [files, setFiles] = useState([[]]);
   const [folderIndex, setFolderIndex] = useState(0);
+  const theme = useTheme();
+  const mdMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleFolders = (event) => {
     setFolderIndex(event.target.value);
@@ -158,6 +169,7 @@ export default function PosterStep1({
         direction="column"
         spacing={4}
         justify="center"
+        alignItems={mdMatch ? "center" : ""}
         style={{ position: "absolute" }}
         key="loaded"
       >
@@ -204,10 +216,21 @@ export default function PosterStep1({
             <MenuItem value={2}>Other</MenuItem>
           </Select>
         </Grid>
-        <Grid container direction="row" spacing={2}>
+        <GridList
+          cols={smMatch ? 1 : mdMatch ? 2 : 3}
+          cellHeight="auto"
+          style={{
+            marginLeft: mdMatch || smMatch ? "100px" : "0px",
+          }}
+        >
           {files[folderIndex].map(({ imageSrc, name, url }) => {
             return (
-              <Grid key={name} item>
+              <GridListTile
+                cols={1}
+                spacing={3}
+                key={name}
+                style={{ marginBottom: "15px" }}
+              >
                 <PosterCard
                   src={imageSrc}
                   title={name}
@@ -216,10 +239,10 @@ export default function PosterStep1({
                   setStep={setStep}
                   setURLError={setURLError}
                 />
-              </Grid>
+              </GridListTile>
             );
           })}
-        </Grid>
+        </GridList>
       </Grid>
     );
   }

@@ -1,10 +1,16 @@
 import React from "react";
-import { Grid, Typography, Button, CardContent } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  CardContent,
+  useTheme,
+  useMediaQuery,
+} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import CheckIcon from "@material-ui/icons/Check";
 import { CSSTransition } from "react-transition-group";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/styles";
+import OkayButton from "./OkayButton";
 
 const useStyles = makeStyles((theme) => ({
   titleCard: {
@@ -16,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   inputCard: {
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelPink,
+    [theme.breakpoints.down("sm")]: {
+      minWidth: 400,
+    },
     minWidth: 750,
   },
 }));
@@ -29,6 +38,9 @@ export default function TitleInput({
   titleError,
 }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <CSSTransition
       key={2}
@@ -43,6 +55,7 @@ export default function TitleInput({
         direction="column"
         spacing={4}
         justify="center"
+        alignItems={matches ? "center" : ""}
         style={{ position: "absolute" }}
       >
         <Grid item>
@@ -92,36 +105,7 @@ export default function TitleInput({
           in={title.length > 0}
           unmountOnExit
         >
-          <div>
-            {
-              <Grid
-                item
-                container
-                direction="row"
-                spacing={2}
-                alignItems="center"
-              >
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    startIcon={<CheckIcon />}
-                    color="inherit"
-                    style={{ backgroundColor: "rgb(237, 237, 237)" }}
-                    onClick={() => {
-                      setStep(currentStep + 1);
-                    }}
-                  >
-                    Ok
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Typography variant="p">
-                    Press <b>Enter ↵</b>
-                  </Typography>
-                </Grid>
-              </Grid>
-            }
-          </div>
+          <OkayButton currentStep={currentStep} setStep={setStep} />
         </CSSTransition>
       </Grid>
     </CSSTransition>

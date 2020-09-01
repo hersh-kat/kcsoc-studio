@@ -41,8 +41,7 @@ export default function PosterTemplateWizard() {
         direction="column"
         spacing={4}
         style={{
-          paddingTop: "200px",
-          paddingBottom: "200px",
+          paddingTop: "20vh",
           position: "absolute",
         }}
         justify="center"

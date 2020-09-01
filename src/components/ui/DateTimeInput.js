@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
   Grid,
   Typography,
-  Button,
   CardContent,
   Card,
   createMuiTheme,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import CheckIcon from "@material-ui/icons/Check";
 import DateFnsUtils from "@date-io/date-fns";
 import lightBlue from "@material-ui/core/colors/lightBlue";
 import { ThemeProvider } from "@material-ui/styles";
@@ -30,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
   inputCard: {
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelPink,
-    minWidth: 350,
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 350,
+    },
+    maxWidth: 350,
   },
 }));
 
@@ -89,6 +92,9 @@ export default function DateTimeInput({
   const [date2, setDate2] = useState(date);
   const [time2, setTime2] = useState(time);
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <React.Fragment>
       <CSSTransition
@@ -101,10 +107,11 @@ export default function DateTimeInput({
         <Grid
           item
           container
-          direction="column"
           spacing={4}
           justify="center"
+          alignItems={matches ? "center" : ""}
           style={{ position: "absolute" }}
+          direction="column"
         >
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid item>

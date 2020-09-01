@@ -21,6 +21,8 @@ const useStyles = makeStyles(() => ({
     borderStyle: "dashed",
     padding: "40px",
     borderWidth: "3px",
+    width: 260,
+    height: 173,
   },
 }));
 
@@ -34,9 +36,7 @@ export default function ChooseCreation() {
       container
       direction="column"
       style={{
-        paddingTop: "200px",
-        paddingBottom: "200px",
-        minHeight: "100vh",
+        minHeight: "90vh",
         position: "absolute",
       }}
       spacing={5}
@@ -75,6 +75,9 @@ export default function ChooseCreation() {
                 </Grid>
                 <Typography style={{ fontWeight: 700 }}>
                   Create Trailer
+                </Typography>
+                <Typography style={{ fontSize: 12, color: "red" }}>
+                  (Beta)
                 </Typography>
               </Grid>
             </Button>

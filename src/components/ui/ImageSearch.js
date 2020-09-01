@@ -10,8 +10,10 @@ import {
   Card,
   CardContent,
   makeStyles,
+  useMediaQuery,
 } from "@material-ui/core";
 import { CSSTransition } from "react-transition-group";
+import { useTheme } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   titleCard: {
@@ -19,11 +21,6 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 60,
     display: "inline-block",
     backgroundColor: theme.palette.common.pastelBlue,
-  },
-  inputCard: {
-    display: "inline-block",
-    backgroundColor: theme.palette.common.pastelPink,
-    minWidth: 750,
   },
 }));
 
@@ -40,6 +37,8 @@ export default function ImageSearch({
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   async function loadMoreImages() {
     var url = "https://pixabay.com/api/?key=***REMOVED***";
@@ -108,13 +107,16 @@ export default function ImageSearch({
       direction="column"
       spacing={4}
       justify="center"
+      alignItems={matches ? "center" : ""}
       style={{ position: "absolute" }}
       key="loaded"
     >
       <Grid item>
         <Card className={classes.titleCard}>
           <CardContent>
-            <Typography variant="h2">1. Choose your event</Typography>
+            <Typography variant="h2">
+              1. Search for a background image for your poster
+            </Typography>
           </CardContent>
         </Card>
         <Typography
@@ -132,7 +134,7 @@ export default function ImageSearch({
                 }
           }
         >
-          Please select a poster template to use.
+          Please select an image to use.
         </Typography>
       </Grid>
       <Grid item>

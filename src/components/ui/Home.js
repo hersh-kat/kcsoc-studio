@@ -23,8 +23,6 @@ export default function Hero() {
       spacing={5}
       alignItems="center"
       style={{
-        paddingBottom: "200px",
-        minHeight: "100vh",
         position: "absolute",
       }}
     >
@@ -37,7 +35,7 @@ export default function Hero() {
         style={{ paddingTop: "60px" }}
       >
         <Grid item>
-          <img src={appLogo} />
+          <img src={appLogo} width={150} />
         </Grid>
         <Grid item>
           <img style={{ WebkitFilter: "invert(100%)" }} src={textLogo} />

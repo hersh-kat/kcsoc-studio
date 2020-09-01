@@ -16,6 +16,7 @@ import PosterCustomWizard from "./ui/PosterCustomWizard";
 import GenerateVideo from "./ui/GenerateVideo";
 import VideoWizard from "./ui/VideoWizard";
 import backgroundImage from "../assets/background.png";
+import AppBarHeader from "./ui/AppBarHeader";
 
 const useStyles = makeStyles((theme) => ({
   bgImage: {
@@ -35,6 +36,7 @@ function App() {
       <CssBaseline>
         <div className={styles.bgImage}></div>
         <Container style={{ position: "relative" }}>
+          <AppBarHeader />
           <Route
             exact
             path="/create/poster/custom/generate"

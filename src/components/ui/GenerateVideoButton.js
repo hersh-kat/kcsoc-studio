@@ -68,7 +68,7 @@ export default function GenerateCustomPosterButton({
           if (validateSteps()) setRedirect(true);
         }}
       >
-        <Typography style={{ fontSize: 16 }}>Generate Poster</Typography>
+        <Typography style={{ fontSize: 16 }}>Generate Video</Typography>
       </Button>
       {redirect && (
         <Redirect

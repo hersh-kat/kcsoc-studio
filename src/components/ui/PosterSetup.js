@@ -23,9 +23,7 @@ export default function PosterStep1() {
       container
       direction="column"
       style={{
-        paddingTop: "200px",
-        paddingBottom: "200px",
-        minHeight: "100vh",
+        minHeight: "90vh",
         position: "absolute",
       }}
       justify="center"

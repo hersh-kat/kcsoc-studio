@@ -38,11 +38,9 @@ export default function PosterCustomWizard() {
     <Grid
       container
       direction="column"
-      spacing={4}
       style={{
-        paddingTop: "200px",
-        paddingBottom: "200px",
         position: "absolute",
+        paddingTop: "20vh",
       }}
       justify="center"
     >

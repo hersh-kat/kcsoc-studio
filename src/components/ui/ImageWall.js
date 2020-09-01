@@ -1,8 +1,9 @@
 import React from "react";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import { Typography } from "@material-ui/core";
+import { Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
     //backgroundColor: theme.palette.background.paper,
   },
   gridList: {
+    [theme.breakpoints.down("md")]: {
+      width: (640 / 2) * 2,
+    },
     width: (640 / 2) * 3,
-    height: 420 * 3,
   },
 
   gridListTile: {
@@ -48,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0,
     cursor: "pointer",
     textAlign: "center",
+    color: "white",
   },
 }));
 
@@ -59,13 +63,14 @@ export default function ImageWall({
   setImageURLError,
 }) {
   const classes = useStyles();
-
+  const theme = useTheme();
+  const mdMatch = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <div className={classes.root}>
       <GridList
         cellHeight={426 / 2}
         className={classes.gridList}
-        cols={3}
+        cols={mdMatch ? 2 : 3}
         onScroll={onScrollHandler}
       >
         {images.map((tile) => (

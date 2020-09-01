@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.pastelPink,
     minWidth: 750,
   },
+  ".WAMuiChipInput-underline-20.after": {
+    "border-bottom": "2px solid black",
+  },
 }));
 
 export default function TagsInput({
@@ -54,51 +57,50 @@ export default function TagsInput({
             <CardContent>
               <Typography variant="h2">
                 {" "}
-                {currentStep}. Enter up to three tags for your trailer
-                (seperated by comma). {tags}
+                {currentStep}. Enter up to three tags for your trailer (press
+                Enter after each tag).
               </Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item>
-          <ChipInput
-            value={tags}
-            onAdd={(chip) => {
-              if (tags.length == 3) setMaxTagsError(true);
-              else setTags([...tags, chip]);
-            }}
-            onDelete={(chip, index) => {
-              setTags(tags.filter((p, i) => i !== index));
-            }}
-            InputProps={{
-              error: true,
-              helperText: "Please fill this in.",
-            }}
-          />
-        </Grid>
-        <Grid item>
           <Card className={classes.inputCard}>
             <CardContent>
-              <TextField
+              <ChipInput
                 autoFocus
                 fullWidth
-                error={tagsError}
-                helperText={tagsError ? "Please fill this in." : ""}
                 color="secondary"
-                id="tags"
-                label="Tags"
                 placeholder="Meditation, yoga, happy"
+                error={maxTagsError || tagsError}
+                helperText={
+                  maxTagsError
+                    ? "You have entered the maximum number of tags."
+                    : tagsError
+                    ? "Please enter atleast one tag."
+                    : ""
+                }
                 value={tags}
+                newChipKeys={[","]}
+                newChipKeyCodes={[188]}
+                onAdd={(chip) => {
+                  if (tags.length == 3) setMaxTagsError(true);
+                  else {
+                    setTags([...tags, chip]);
+                    setMaxTagsError(false);
+                    setTagsError(false);
+                  }
+                }}
+                onDelete={(chip, index) => {
+                  setTags(tags.filter((p, i) => i !== index));
+                }}
+                label="Tags"
                 InputLabelProps={{
                   shrink: true,
-                }}
-                onChange={(event) => {
-                  setTags(event.target.value);
-                  setTagsError(false);
                 }}
                 onKeyDown={(event) => {
                   if (event.keyCode == 13) {
                     if (tags.length == 0) setTagsError(true);
+                    else setStep(currentStep + 1);
                   }
                 }}
               />
