@@ -72,7 +72,7 @@ export default function Hero() {
         <Grid item xs style={{ marginLeft: "40px" }}>
           <Typography>
             Welcome to KCSOC Studio (Version 1.0) - Your online marketing
-            assistant. This revolutionary tool will help you make professional,
+            assistant! This revolutionary tool will help you make professional,
             high-quality posters and trailers for your local KCSOC without you
             needing to have any photo/video editing skills whatsover! New
             features are planned to be added soon. If you come across any bugs
