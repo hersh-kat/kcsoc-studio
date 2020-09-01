@@ -331,7 +331,7 @@ export default function GenerateVideo(props) {
       const pollShotstackRender = async (vidID) => {
         const headers = {
           Accept: "application/json",
-          "x-api-key": "***REMOVED***",
+          "x-api-key": "U78KY03BHDJ0MVbykqpx8hLNIo2HtWT2UVOHLgRf",
         };
 
         //console.log("Polling shotstack API...");
