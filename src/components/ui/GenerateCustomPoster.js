@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography, useMediaQuery } from "@material-ui/core";
 import HashLoader from "react-spinners/HashLoader";
+import { useTheme, makeStyles } from "@material-ui/styles";
 
 function arrayBufferToBase64(buffer) {
   var binary = "";
@@ -20,11 +21,24 @@ function linkBuilder(props) {
 
   return link;
 }
+const useStyles = makeStyles((theme) => ({
+  poster: {
+    paddingTop: "30px",
+    paddingBottom: "30px",
+    width: "65%",
+    [theme.breakpoints.down("md")]: {
+      width: "85%",
+    },
+  },
+}));
 
 export default function GenerateCustomPoster(props) {
   const iframeRef = useRef(null);
   const [imageData, setImageData] = useState(null);
   const [hidePhotopea, setHidePhotopea] = useState(true);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const classes = useStyles();
   var n = 0;
 
   useEffect(() => {
@@ -83,12 +97,18 @@ export default function GenerateCustomPoster(props) {
             <div>
               <Grid item>
                 <img
+                  className={classes.poster}
                   src={"data:image/jpg;base64," + imageData}
-                  style={{ width: "50%" }}
                   alt="Generated KCSOC Poster"
                 />
               </Grid>
-              <Grid item container direction="row" justify="space-around">
+              <Grid
+                item
+                container
+                justify="space-around"
+                spacing={3}
+                direction={matches ? "column" : "row"}
+              >
                 <Grid item>
                   <Button
                     variant="contained"
