@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "./ui/Theme";
+import Login from "./ui/Login";
 import Home from "./ui/Home";
 import ChooseCreation from "./ui/ChooseCreation";
 import { Route } from "react-router-dom";
@@ -139,6 +140,18 @@ function App() {
               </CSSTransition>
             )}
           </Route>
+          <Route exact path="/login">
+          {({ match }) => (
+            <CSSTransition
+              in={match != null}
+              timeout={300}
+              classNames="page"
+              unmountOnExit
+            >
+              <Login />
+            </CSSTransition>
+          )}
+        </Route>
           <Route exact path="/">
             {({ match }) => (
               <CSSTransition
