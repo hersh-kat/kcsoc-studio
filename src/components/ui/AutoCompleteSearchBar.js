@@ -44,7 +44,7 @@ export default function AutoCompleteSearchBar({
               <TextField
                 fullWidth
                 {...params}
-                label="Search"
+                label="Search*"
                 margin="normal"
                 variant="standard"
                 color="secondary"
