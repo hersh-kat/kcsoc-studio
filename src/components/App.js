@@ -69,7 +69,7 @@ function App() {
 					<div className={styles.bgImage}></div>
 					<Container style={{ position: "relative" }}>
 						<AppBarHeader />
-						<Route
+						<PrivateRoute
 							exact
 							path="/create/poster/custom/generate"
 							render={(props) => (
@@ -82,8 +82,8 @@ function App() {
 									<GenerateCustomPoster {...props} />
 								</CSSTransition>
 							)}
-						></Route>
-						<Route
+						></PrivateRoute>
+						<PrivateRoute
 							exact
 							path="/create/poster/template/generate"
 							render={(props) => (
@@ -96,8 +96,8 @@ function App() {
 									<GeneratePoster {...props} />
 								</CSSTransition>
 							)}
-						></Route>
-						<Route
+						></PrivateRoute>
+						<PrivateRoute
 							exact
 							path="/create/trailer/generate"
 							render={(props) => (
@@ -110,8 +110,8 @@ function App() {
 									<GenerateVideo {...props} />
 								</CSSTransition>
 							)}
-						></Route>
-						<Route exact path="/create/trailer">
+						></PrivateRoute>
+						<PrivateRoute exact path="/create/trailer">
 							{({ match }) => (
 								<CSSTransition
 									in={match != null}
@@ -122,8 +122,8 @@ function App() {
 									<VideoWizard />
 								</CSSTransition>
 							)}
-						</Route>
-						<Route exact path="/create/poster/template">
+						</PrivateRoute>
+						<PrivateRoute exact path="/create/poster/template">
 							{({ match }) => (
 								<CSSTransition
 									in={match != null}
@@ -134,8 +134,8 @@ function App() {
 									<PosterTemplateWizard />
 								</CSSTransition>
 							)}
-						</Route>
-						<Route exact path="/create/poster/custom">
+						</PrivateRoute>
+						<PrivateRoute exact path="/create/poster/custom">
 							{({ match }) => (
 								<CSSTransition
 									in={match != null}
@@ -146,8 +146,8 @@ function App() {
 									<PosterCustomWizard />
 								</CSSTransition>
 							)}
-						</Route>
-						<Route exact path="/create/poster">
+						</PrivateRoute>
+						<PrivateRoute exact path="/create/poster">
 							{({ match }) => (
 								<CSSTransition
 									in={match != null}
@@ -158,7 +158,7 @@ function App() {
 									<PosterSetup />
 								</CSSTransition>
 							)}
-						</Route>
+						</PrivateRoute>
 						<PrivateRoute exact path="/create">
 							{({ match }) => (
 								<CSSTransition
@@ -171,7 +171,6 @@ function App() {
 								</CSSTransition>
 							)}
 						</PrivateRoute>
-						<Route exact path="/create"></Route>
 						<Route exact path="/login">
 							{({ match }) => (
 								<CSSTransition
