@@ -1,7 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
 
-export default function Login() {
+const useStyles = makeStyles((theme) => ({
+	loginError: {
+		fontSize: "15px",
+		color: "red",
+	},
+}));
+
+export default function Login(props) {
+	const classes = useStyles();
+	const history = useHistory();
+	const { setUserData } = useContext(UserContext);
+
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [helperMessages, setHelperMessages] = useState({
@@ -13,10 +28,11 @@ export default function Login() {
 		password: false,
 	});
 	const [submitDisabled, setSubmitDisabled] = useState(false);
+	const [loginError, setLoginError] = useState("");
 
-	const submit = (e) => {
+
+	const submit = async (e) => {
 		e.preventDefault();
-		console.log(username, password);
 		if (!username && !password) {
 			setHelperMessages({
 				username: "Username is required",
@@ -49,7 +65,32 @@ export default function Login() {
 		setErrors({ username: false, password: false });
 		setHelperMessages({ username: "", password: "" });
 		setSubmitDisabled(true);
+		try {
+			const loginRes = await axios.post(
+				"http://localhost:5000/users/login",
+				{
+					username,
+					password,
+				}
+			);
+			setUserData({
+				token: loginRes.data.token,
+			});
+
+			localStorage.setItem("auth-token", loginRes.data.token);
+			if (!props.private) {
+				history.push("/create");
+			}
+		} catch (e) {
+			if (e.response.data.msg) {
+				e.response.data.msg && setLoginError(e.response.data.msg);
+			}
+		}
+		setUsername("");
+		setPassword("");
+		setSubmitDisabled(false);
 	};
+
 	return (
 		<Grid
 			container
@@ -85,6 +126,12 @@ export default function Login() {
 					}}
 					helperText={helperMessages.username}
 					error={errors.username}
+					value={username}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							submit(e);
+						}
+					}}
 				/>
 			</Grid>
 
@@ -99,6 +146,12 @@ export default function Login() {
 					}}
 					helperText={helperMessages.password}
 					error={errors.password}
+					value={password}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							submit(e);
+						}
+					}}
 				/>
 			</Grid>
 
@@ -111,6 +164,11 @@ export default function Login() {
 				>
 					Login
 				</Button>
+			</Grid>
+			<Grid item>
+				<Typography className={classes.loginError}>
+					<p>{loginError}</p>
+				</Typography>
 			</Grid>
 		</Grid>
 	);

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,156 +19,189 @@ import GenerateVideo from "./ui/GenerateVideo";
 import VideoWizard from "./ui/VideoWizard";
 import backgroundImage from "../assets/background.png";
 import AppBarHeader from "./ui/AppBarHeader";
+import UserContext from "./contexts/UserContext";
+import PrivateRoute from "./routers/PrivateRoute";
 
 const useStyles = makeStyles(() => ({
-  bgImage: {
-    position: "absolute",
-    backgroundImage: "url(" + backgroundImage + ")",
-    height: "100%",
-    width: "100%",
-    opacity: 0.1,
-  },
+	bgImage: {
+		position: "absolute",
+		backgroundImage: "url(" + backgroundImage + ")",
+		height: "100%",
+		width: "100%",
+		opacity: 0.1,
+	},
 }));
 
 function App() {
-  const styles = useStyles();
+	const styles = useStyles();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline>
-        <div className={styles.bgImage}></div>
-        <Container style={{ position: "relative" }}>
-          <AppBarHeader />
-          <Route
-            exact
-            path="/create/poster/custom/generate"
-            render={(props) => (
-              <CSSTransition
-                in={props.match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <GenerateCustomPoster {...props} />
-              </CSSTransition>
-            )}
-          ></Route>
-          <Route
-            exact
-            path="/create/poster/template/generate"
-            render={(props) => (
-              <CSSTransition
-                in={props.match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <GeneratePoster {...props} />
-              </CSSTransition>
-            )}
-          ></Route>
-          <Route
-            exact
-            path="/create/trailer/generate"
-            render={(props) => (
-              <CSSTransition
-                in={props.match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <GenerateVideo {...props} />
-              </CSSTransition>
-            )}
-          ></Route>
-          <Route exact path="/create/trailer">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <VideoWizard />
-              </CSSTransition>
-            )}
-          </Route>
-          <Route exact path="/create/poster/template">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <PosterTemplateWizard />
-              </CSSTransition>
-            )}
-          </Route>
-          <Route exact path="/create/poster/custom">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <PosterCustomWizard />
-              </CSSTransition>
-            )}
-          </Route>
-          <Route exact path="/create/poster">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <PosterSetup />
-              </CSSTransition>
-            )}
-          </Route>
-          <Route exact path="/create">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <ChooseCreation />
-              </CSSTransition>
-            )}
-          </Route>
-          <Route exact path="/login">
-          {({ match }) => (
-            <CSSTransition
-              in={match != null}
-              timeout={300}
-              classNames="page"
-              unmountOnExit
-            >
-              <Login />
-            </CSSTransition>
-          )}
-        </Route>
-          <Route exact path="/">
-            {({ match }) => (
-              <CSSTransition
-                in={match != null}
-                timeout={300}
-                classNames="page"
-                unmountOnExit
-              >
-                <Home />
-              </CSSTransition>
-            )}
-          </Route>
-        </Container>
-      </CssBaseline>
-    </ThemeProvider>
-  );
+	const [userData, setUserData] = useState({
+		token: undefined,
+	});
+
+	useEffect(() => {
+		const checkLoggedIn = async () => {
+			let token = localStorage.getItem("auth-token");
+
+			if (token === null) {
+				localStorage.setItem("auth-token", "");
+				token = "";
+			}
+			const tokenRes = await axios.post(
+				"http://localhost:5000/users/tokenIsValid",
+				null,
+				{ headers: { "x-auth-token": token } }
+			);
+			if (tokenRes.data) {
+				setUserData({
+					token,
+				});
+			}
+		};
+
+		checkLoggedIn();
+	}, []);
+
+	return (
+		<ThemeProvider theme={theme}>
+			<UserContext.Provider value={{ userData, setUserData }}>
+				<CssBaseline>
+					<div className={styles.bgImage}></div>
+					<Container style={{ position: "relative" }}>
+						<AppBarHeader />
+						<Route
+							exact
+							path="/create/poster/custom/generate"
+							render={(props) => (
+								<CSSTransition
+									in={props.match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<GenerateCustomPoster {...props} />
+								</CSSTransition>
+							)}
+						></Route>
+						<Route
+							exact
+							path="/create/poster/template/generate"
+							render={(props) => (
+								<CSSTransition
+									in={props.match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<GeneratePoster {...props} />
+								</CSSTransition>
+							)}
+						></Route>
+						<Route
+							exact
+							path="/create/trailer/generate"
+							render={(props) => (
+								<CSSTransition
+									in={props.match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<GenerateVideo {...props} />
+								</CSSTransition>
+							)}
+						></Route>
+						<Route exact path="/create/trailer">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<VideoWizard />
+								</CSSTransition>
+							)}
+						</Route>
+						<Route exact path="/create/poster/template">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<PosterTemplateWizard />
+								</CSSTransition>
+							)}
+						</Route>
+						<Route exact path="/create/poster/custom">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<PosterCustomWizard />
+								</CSSTransition>
+							)}
+						</Route>
+						<Route exact path="/create/poster">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<PosterSetup />
+								</CSSTransition>
+							)}
+						</Route>
+						<PrivateRoute exact path="/create">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<ChooseCreation />
+								</CSSTransition>
+							)}
+						</PrivateRoute>
+						<Route exact path="/create"></Route>
+						<Route exact path="/login">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<Login />
+								</CSSTransition>
+							)}
+						</Route>
+
+						<Route exact path="/">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<Home />
+								</CSSTransition>
+							)}
+						</Route>
+					</Container>
+				</CssBaseline>
+			</UserContext.Provider>
+		</ThemeProvider>
+	);
 }
 
 export default App;

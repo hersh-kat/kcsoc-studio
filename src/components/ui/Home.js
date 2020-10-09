@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import appLogo from "../../assets/appLogo.svg";
 import textLogo from "../../assets/textLogo.svg";
 import {
@@ -11,6 +11,7 @@ import {
 import graphicDesignLogo from "../../assets/website-design.png";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
+import UserContext from "../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
 	button: {
@@ -27,6 +28,8 @@ export default function Hero() {
 	const matches = useMediaQuery(theme.breakpoints.down("sm"));
 	const xsMatches = useMediaQuery(theme.breakpoints.down("xs"));
 	const classes = useStyles();
+	const { userData, setUserData } = useContext(UserContext);
+
 	return (
 		<Grid
 			container
@@ -87,15 +90,29 @@ export default function Hero() {
 				</Grid>
 			</Grid>
 			<Grid item>
-				<Link to="/login" style={{ textDecoration: "none" }}>
+				{userData.token ? (
 					<Button
 						className={classes.button}
 						variant="contained"
 						size="large"
+						onClick={() => {
+							localStorage.removeItem("auth-token");
+							setUserData({});
+						}}
 					>
-						<Typography>Login</Typography>
+						<Typography>Logout</Typography>
 					</Button>
-				</Link>
+				) : (
+					<Link to="/login" style={{ textDecoration: "none" }}>
+						<Button
+							className={classes.button}
+							variant="contained"
+							size="large"
+						>
+							<Typography>Login</Typography>
+						</Button>
+					</Link>
+				)}
 			</Grid>
 		</Grid>
 	);
