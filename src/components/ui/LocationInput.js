@@ -77,7 +77,7 @@ export default function PosterTemplateLocation({
 						<CardContent>
 							<Typography variant="h2">
 								{currentStep}. Enter the location details for
-								your event
+								your event*
 							</Typography>
 						</CardContent>
 					</Card>
@@ -96,7 +96,7 @@ export default function PosterTemplateLocation({
 								}
 								color="secondary"
 								id="location-line-1"
-								label="Building Name"
+								label="Building Name*"
 								placeholder="Let's be honest, it's probably on Zoom..."
 								value={locationLine1}
 								InputLabelProps={{
@@ -136,7 +136,7 @@ export default function PosterTemplateLocation({
 								}
 								color="secondary"
 								id="location-line-2"
-								label="Room Number"
+								label="Room Number*"
 								placeholder="...and it's probably online."
 								value={locationLine2}
 								InputLabelProps={{

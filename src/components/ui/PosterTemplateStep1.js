@@ -182,7 +182,7 @@ export default function PosterStep1({
         <Grid item>
           <Card className={classes.titleCard}>
             <CardContent>
-              <Typography variant="h2">1. Choose your KCSOC event</Typography>
+              <Typography variant="h2">1. Choose your KCSOC event*</Typography>
             </CardContent>
           </Card>
           <Typography

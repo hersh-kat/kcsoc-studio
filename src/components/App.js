@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Modal from "react-modal";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,6 +32,8 @@ const useStyles = makeStyles(() => ({
 		opacity: 0.1,
 	},
 }));
+
+Modal.setAppElement("#root");
 
 function App() {
 	const styles = useStyles();

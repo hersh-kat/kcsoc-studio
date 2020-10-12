@@ -82,7 +82,7 @@ export default function Login(props) {
 				history.push("/create");
 			}
 		} catch (e) {
-			if (e.response.data.msg) {
+			if (e.response) {
 				e.response.data.msg && setLoginError(e.response.data.msg);
 			}
 		}

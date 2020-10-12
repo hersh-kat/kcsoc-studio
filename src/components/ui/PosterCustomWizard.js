@@ -109,6 +109,7 @@ export default function PosterCustomWizard() {
 					showOnStep={5}
 					setDate={setDate}
 					setTime={setTime}
+					custom={true}
 					generatePosterComponent={
 						<GenerateCustomPosterButton
 							date={date} //dateFormat(date, "ddd dS mmm")

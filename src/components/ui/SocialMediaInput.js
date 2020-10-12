@@ -52,7 +52,7 @@ export default function PosterTemplateSocialMedia({
 	setFacebookInputError,
 	facebookInputError,
 	zoomUrl,
-	setZoomUrl
+	setZoomUrl,
 }) {
 	const classes = useStyles();
 	const theme = useTheme();
@@ -112,15 +112,7 @@ export default function PosterTemplateSocialMedia({
 								}}
 								onKeyDown={(event) => {
 									if (event.keyCode === 13) {
-										if (facebookUrl.length === 0)
-											setFacebookInputError(true);
-										if (instaHandle.length === 0)
-											setInstagramInputError(true);
-										if (
-											facebookUrl.length > 0 &&
-											instaHandle.length > 0
-										)
-											setStep(currentStep + 1);
+										setStep(currentStep + 1);
 									}
 								}}
 							/>
@@ -152,15 +144,7 @@ export default function PosterTemplateSocialMedia({
 								}}
 								onKeyDown={(event) => {
 									if (event.keyCode === 13) {
-										if (facebookUrl.length === 0)
-											setFacebookInputError(true);
-										if (instaHandle.length === 0)
-											setInstagramInputError(true);
-										if (
-											facebookUrl.length > 0 &&
-											instaHandle.length > 0
-										)
-											setStep(currentStep + 1);
+										setStep(currentStep + 1);
 									}
 								}}
 							/>
@@ -185,15 +169,7 @@ export default function PosterTemplateSocialMedia({
 								}}
 								onKeyDown={(event) => {
 									if (event.keyCode === 13) {
-										if (facebookUrl.length === 0)
-											setFacebookInputError(true);
-										if (instaHandle.length === 0)
-											setInstagramInputError(true);
-										if (
-											facebookUrl.length > 0 &&
-											instaHandle.length > 0
-										)
-											setStep(currentStep + 1);
+										setStep(currentStep + 1);
 									}
 								}}
 							/>
@@ -203,7 +179,7 @@ export default function PosterTemplateSocialMedia({
 				<CSSTransition
 					timeout={400}
 					classNames={"flipX"}
-					in={instaHandle.length > 0 && facebookUrl.length > 0}
+					in
 					unmountOnExit
 				>
 					<OkayButton currentStep={currentStep} setStep={setStep} />
