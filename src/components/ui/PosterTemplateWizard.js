@@ -8,12 +8,15 @@ import StepChangeButtons from "./StepChangeButtons";
 import { TransitionGroup } from "react-transition-group";
 import "../../css/animations.css";
 import GeneratePosterButton from "./GeneratePosterButton";
+import TitleInput from "./TitleInput";
 
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [url, setURL] = useState("");
 	const [urlError, setURLError] = useState(false);
+	const [title, setTitle] = useState("");
+	const [titleError, setTitleError] = useState(false);
 	const [instaHandle, setInstaHandle] = useState("");
 	const [facebookUrl, setFacebookUrl] = useState("");
 	const [facebookInputError, setFacebookInputError] = useState(false);
@@ -49,7 +52,7 @@ export default function PosterTemplateWizard() {
 					next={next}
 					prev={prev}
 					currentStep={currentStep}
-					endAt={4}
+					endAt={5}
 				/>
 				<TransitionGroup
 					childFactory={(child) => React.cloneElement(child)}
@@ -63,9 +66,20 @@ export default function PosterTemplateWizard() {
 						urlError={urlError}
 						setURLError={setURLError}
 					/>
-					<PosterTemplateSocialMedia
+					<TitleInput
 						currentStep={currentStep}
 						showOnStep={2}
+						title={title}
+						setTitle={setTitle}
+						setStep={next}
+						titleError={titleError}
+						setTitleError={setTitleError}
+						speaker={speaker}
+						setSpeaker={setSpeaker}
+					/>
+					<PosterTemplateSocialMedia
+						currentStep={currentStep}
+						showOnStep={3}
 						setInstaHandle={setInstaHandle}
 						setFacebookUrl={setFacebookUrl}
 						setStep={next}
@@ -80,7 +94,7 @@ export default function PosterTemplateWizard() {
 					/>
 					<PosterTemplateLocation
 						currentStep={currentStep}
-						showOnStep={3}
+						showOnStep={4}
 						setLocationLine1={setLocationLine1}
 						setLocationLine2={setLocationLine2}
 						setStep={next}
@@ -93,10 +107,9 @@ export default function PosterTemplateWizard() {
 					/>
 					<DateTimeInput
 						currentStep={currentStep}
-						showOnStep={4}
+						showOnStep={5}
 						setDate={setDate}
 						setTime={setTime}
-						custom={false}
 						speaker={speaker}
 						setSpeaker={setSpeaker}
 						generatePosterComponent={
@@ -104,6 +117,7 @@ export default function PosterTemplateWizard() {
 								date={date} //dateFormat(date, "ddd dS mmm")
 								time={time} //dateFormat(time, "h:MM TT")
 								url={url}
+								title={title}
 								speaker={speaker}
 								instaHandle={instaHandle}
 								facebookUrl={facebookUrl}

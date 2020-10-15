@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import dateFormat from "dateformat";
 import { Grid, Button, Typography, useMediaQuery } from "@material-ui/core";
 import HashLoader from "react-spinners/HashLoader";
 import { useTheme, makeStyles } from "@material-ui/styles";
@@ -17,14 +18,18 @@ function arrayBufferToBase64(buffer) {
 
 function linkBuilder(props) {
 	const {
-		date,
-		time,
+		unformattedDate,
+		unformattedTime,
 		url,
 		facebookHandle,
 		instaHandle,
 		locationLine1,
 		locationLine2,
 	} = props.location.state;
+
+	const date = dateFormat(unformattedDate, "ddd dS mmm");
+	const time = dateFormat(unformattedTime, "h:MM TT");
+
 	var link =
 		"https://www.photopea.com#%7B%22files%22:%5B%22" + url + "%22%5D";
 	var script =

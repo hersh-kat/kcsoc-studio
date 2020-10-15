@@ -1,5 +1,4 @@
 import React from "react";
-import ImageSearch from "./ImageSearch";
 import { useState } from "react";
 import { TransitionGroup } from "react-transition-group";
 import PosterTemplateSocialMedia from "./SocialMediaInput";
@@ -10,7 +9,7 @@ import TitleInput from "./TitleInput";
 import StepChangeButtons from "./StepChangeButtons";
 import { Grid } from "@material-ui/core";
 
-export default function PosterCustomWizard() {
+export default function UploadPosterWizard() {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [url, setURL] = useState("");
 	const [urlError, setURLError] = useState(false);
@@ -57,14 +56,6 @@ export default function PosterCustomWizard() {
 				childFactory={(child) => React.cloneElement(child)}
 				style={{ position: "relative", marginTop: "20px" }}
 			>
-				<ImageSearch
-					currentStep={currentStep}
-					showOnStep={1}
-					setURL={setURL}
-					setStep={next}
-					urlError={urlError}
-					setURLError={setURLError}
-				/>
 				<TitleInput
 					currentStep={currentStep}
 					showOnStep={2}

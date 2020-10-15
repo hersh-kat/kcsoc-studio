@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
 
 import {
 	Grid,
@@ -94,10 +93,7 @@ export default function DateTimeInput({
 	setTime,
 	date,
 	time,
-	speaker,
-	setSpeaker,
 	generatePosterComponent,
-	custom,
 }) {
 	const [date2, setDate2] = useState(date);
 	const [time2, setTime2] = useState(time);
@@ -147,6 +143,7 @@ export default function DateTimeInput({
 											onChange={(newValue) => {
 												setDate(newValue);
 												setDate2(newValue);
+												console.log(newValue);
 											}}
 										/>
 									</ThemeProvider>
@@ -162,48 +159,13 @@ export default function DateTimeInput({
 											onChange={(time) => {
 												setTime(time);
 												setTime2(time);
+												console.log(time);
 											}}
 										/>
 									</ThemeProvider>
 								</CardContent>
 							</Card>
 						</Grid>
-
-						{!custom && (
-							<>
-								<Grid item>
-									<Card className={classes.titleCard}>
-										<CardContent>
-											<Typography variant="h2">
-												5. Enter the speaker's name.
-											</Typography>
-										</CardContent>
-									</Card>
-								</Grid>
-								<Grid item>
-									<Card className={classes.inputCard}>
-										<CardContent>
-											<TextField
-												fullWidth
-												color="secondary"
-												id="speaker"
-												InputLabelProps={{
-													shrink: true,
-												}}
-												label="Speaker"
-												placeholder="Speaker name"
-												value={speaker}
-												onChange={(event) => {
-													setSpeaker(
-														event.target.value
-													);
-												}}
-											/>
-										</CardContent>
-									</Card>
-								</Grid>
-							</>
-						)}
 					</MuiPickersUtilsProvider>
 					<Grid item>{generatePosterComponent}</Grid>
 				</Grid>

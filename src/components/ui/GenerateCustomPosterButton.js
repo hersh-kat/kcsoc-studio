@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
-import dateFormat from "dateformat";
 
 export default function GenerateCustomPosterButton({
 	url,
@@ -84,8 +83,8 @@ export default function GenerateCustomPosterButton({
 					to={{
 						pathname: "/create/poster/custom/generate",
 						state: {
-							date: dateFormat(date, "ddd dS mmm"),
-							time: dateFormat(time, "h:MM TT"),
+							unformattedDate: date,
+							unformattedTime: time,
 							url: url,
 							facebookUrl: facebookUrl,
 							instaHandle: instaHandle,

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-modal";
+import moment from "moment";
+import axios from "axios";
+import dateFormat from "dateformat";
 import { makeStyles } from "@material-ui/styles";
 import { Grid, Typography, Card, CardContent, Button } from "@material-ui/core";
 import Loader from "react-loader-spinner";
+import UserContext from "../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
 	modalCard: {
@@ -20,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 	const {
-		date,
-		time,
+		unformattedDate,
+		unformattedTime,
 		facebookUrl,
 		instaHandle,
 		locationLine1,
@@ -30,6 +34,13 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 		speaker,
 		zoomUrl,
 	} = data;
+	const date = dateFormat(unformattedDate, "ddd dS mmm");
+	const time = dateFormat(unformattedTime, "h:MM TT");
+
+	const dateISO = moment(unformattedDate).toISOString();
+	const timeISO = moment(unformattedTime).toISOString();
+	const timestamp = dateISO.split("T")[0] + "T" + timeISO.split("T")[1];
+
 	const customStyles = {
 		content: {
 			top: "50%",
@@ -47,6 +58,34 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 	const [loading, setLoading] = useState(false);
 	const [uploaded, setUploaded] = useState(false);
 
+	const { userData } = useContext(UserContext);
+
+	const upload = async () => {
+		setLoading(true);
+		const res = await axios.post(
+			"http://localhost:5000/events/create",
+			{
+				name: title,
+				speaker,
+				location: `${locationLine2}, ${locationLine1}`,
+				dateAndTime: timestamp,
+				facebookUrl,
+				instagramUrl: instaHandle,
+				zoomUrl,
+			},
+			{
+				headers: { "x-auth-token": userData.token },
+			}
+		);
+		console.log(res.status);
+		if (res.status === 201) {
+			setTimeout(() => {
+				setLoading(false);
+				setUploaded(true);
+			}, 5000);
+		}
+	};
+
 	return (
 		<Modal
 			isOpen={modalOpen}
@@ -62,32 +101,30 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 						<Typography paragraph variant="h2">
 							Please confirm
 						</Typography>
-						<Typography paragraph variant="p">
-							Title: {title}
-						</Typography>
+						<Typography paragraph>Title: {title}</Typography>
 						{speaker && (
-							<Typography paragraph variant="p">
+							<Typography paragraph>
 								Speaker: {speaker}
 							</Typography>
 						)}
-						<Typography paragraph variant="p">
+						<Typography paragraph>
 							Date and Time: {`${date}, ${time}`}
 						</Typography>
-						<Typography paragraph variant="p">
+						<Typography paragraph>
 							Location: {`${locationLine1}, ${locationLine2}`}
 						</Typography>
 						{facebookUrl && (
-							<Typography paragraph variant="p">
+							<Typography paragraph>
 								Facebook URL: {facebookUrl}
 							</Typography>
 						)}
 						{instaHandle && (
-							<Typography paragraph variant="p">
+							<Typography paragraph>
 								Instagram Handle: {instaHandle}
 							</Typography>
 						)}
 						{zoomUrl && (
-							<Typography paragraph variant="p">
+							<Typography paragraph>
 								Zoom URL: {zoomUrl}
 							</Typography>
 						)}
@@ -106,19 +143,13 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 							<Button
 								variant="contained"
 								color="primary"
-								onClick={() => {
-									setLoading(true);
-									setTimeout(() => {
-										setLoading(false);
-										setUploaded(true);
-									}, 5000);
-								}}
+								onClick={upload}
 								disabled={loading}
 							>
 								Confirm
 							</Button>
 						</Grid>
-						<Grid item spacing>
+						<Grid item>
 							<Button
 								variant="contained"
 								color="secondary"
@@ -132,7 +163,7 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 						</Grid>
 					</>
 				) : (
-					<Grid item spacing>
+					<Grid item>
 						<Button
 							variant="contained"
 							color="secondary"
@@ -162,11 +193,7 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 					</div>
 				)}
 				{uploaded && (
-					<Typography
-						paragraph
-						variant="p"
-						className={classes.uploaded}
-					>
+					<Typography paragraph className={classes.uploaded}>
 						Uploaded!
 					</Typography>
 				)}

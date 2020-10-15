@@ -2,12 +2,12 @@ import React from "react";
 import { Button, Typography } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
-import dateFormat from "dateformat";
 
 export default function GeneratePosterButton({
-  url,
-  speaker,
-  zoomUrl,
+	url,
+	title,
+	speaker,
+	zoomUrl,
 	facebookHandle,
 	instaHandle,
 	locationLine1,
@@ -76,8 +76,9 @@ export default function GeneratePosterButton({
 					to={{
 						pathname: "/create/poster/template/generate",
 						state: {
-							date: dateFormat(date, "ddd dS mmm"),
-							time: dateFormat(time, "h:MM TT"),
+							unformattedDate: date,
+							unformattedTime: time,
+							title: title,
 							url: url,
 							speaker: speaker,
 							zoomUrl: zoomUrl,

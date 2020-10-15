@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import dateFormat from "dateformat";
 import { Grid, Button, Typography, useMediaQuery } from "@material-ui/core";
 import HashLoader from "react-spinners/HashLoader";
 import { useTheme, makeStyles } from "@material-ui/styles";
@@ -43,8 +44,6 @@ export default function GenerateCustomPoster(props) {
 	const classes = useStyles();
 	var n = 0;
 
-	console.log(props.location);
-
 	useEffect(() => {
 		window.addEventListener("message", onMessage);
 	});
@@ -62,14 +61,17 @@ export default function GenerateCustomPoster(props) {
 			}
 			if (n === 3 && iframeRef.current != null) {
 				const {
-					date,
-					time,
+					unformattedDate,
+					unformattedTime,
 					facebookUrl,
 					instaHandle,
 					locationLine1,
 					locationLine2,
 					title,
 				} = props.location.state;
+				const date = dateFormat(unformattedDate, "ddd dS mmm");
+				const time = dateFormat(unformattedTime, "h:MM TT");
+
 				/* Image loaded!  Run some script! */
 				var x = `var doc1 = app.documents[1]; var doc2 = app.documents[0]; app.activeDocument = doc2; doc2.activeLayer.copy(true); app.activeDocument = doc1; app.activeDocument.activeLayer = app.activeDocument.artLayers.getByName('Empty'); doc1.paste(); app.activeDocument.activeLayer = app.activeDocument.artLayers.getByName('Empty'); app.activeDocument.activeLayer.remove(); var doc = app.activeDocument; app.activeDocument.activeLayer = app.activeDocument.artLayers.getByName('Layer 1'); var layer = app.activeDocument.artLayers.getByName('Layer 1'); var width = doc.width; var height =doc.height; var bounds = app.activeDocument.activeLayer.bounds; var layerWidth = bounds[2]-bounds[0]; var layerHeight = bounds[3]-bounds[1]; layer.translate(-1 * (0 - bounds[0]), -1 * (0 - bounds[1])); var canvasRatio = width / height; var layerRatio = layerWidth / layerHeight; if (layerRatio < canvasRatio) { var newWidth = width; var newHeight = ((1.0 * width) / layerRatio); var MoveY = -1 * ((newHeight - height) / 2); var MoveX = 0; } else { layerRatio = layerHeight / layerWidth; var newHeight = height; var newWidth = ((1.0 * height) / layerRatio); var MoveX = -1 * ((newWidth - width) / 2); var MoveY = 0; } var resizePercent = newHeight/layerHeight*100; app.activeDocument.activeLayer.resize(resizePercent,resizePercent,AnchorPosition.TOPLEFT); layer.translate(MoveX, MoveY);  activeDocument.activeLayer = activeDocument.artLayers.getByName('Title'); activeDocument.activeLayer.textItem.contents = '${title}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('@kcsoc FB Tag'); activeDocument.activeLayer.textItem.contents = '${facebookUrl}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('@kcsoc Insta Tag'); activeDocument.activeLayer.textItem.contents = '${instaHandle}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('Date'); activeDocument.activeLayer.textItem.contents = '${date}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('Time'); activeDocument.activeLayer.textItem.contents = '${time}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('LocationLine1'); activeDocument.activeLayer.textItem.contents = '${locationLine1}'; activeDocument.activeLayer = activeDocument.artLayers.getByName('LocationLine2'); activeDocument.activeLayer.textItem.contents = '${locationLine2}'; activeDocument.saveToOE("jpg")`;
 				iframeRef.current.contentWindow.postMessage(x, "*");

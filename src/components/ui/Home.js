@@ -64,7 +64,7 @@ export default function Hero() {
 				container
 				direction={matches ? "column" : "row"}
 				alignItems="center"
-				style={{ minHeight: "60vh" }}
+				style={{ minHeight: "40vh" }}
 			>
 				<Grid item xs={12} md={3}>
 					<img
@@ -91,17 +91,51 @@ export default function Hero() {
 			</Grid>
 			<Grid item>
 				{userData.token ? (
-					<Button
-						className={classes.button}
-						variant="contained"
-						size="large"
-						onClick={() => {
-							localStorage.removeItem("auth-token");
-							setUserData({});
-						}}
-					>
-						<Typography>Logout</Typography>
-					</Button>
+					<>
+						<Grid
+							item
+							style={{
+								margin: "2rem",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<Link
+								to="/create"
+								style={{ textDecoration: "none" }}
+							>
+								<Button
+									className={classes.button}
+									variant="contained"
+									size="large"
+								>
+									<Typography>Get Started</Typography>
+								</Button>
+							</Link>
+						</Grid>
+						<Grid
+							item
+							style={{
+								margin: "2rem",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<Button
+								className={classes.button}
+								variant="contained"
+								size="large"
+								onClick={() => {
+									localStorage.removeItem("auth-token");
+									setUserData({});
+								}}
+							>
+								<Typography>Logout</Typography>
+							</Button>
+						</Grid>
+					</>
 				) : (
 					<Link to="/login" style={{ textDecoration: "none" }}>
 						<Button

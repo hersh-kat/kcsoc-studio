@@ -22,6 +22,7 @@ import backgroundImage from "../assets/background.png";
 import AppBarHeader from "./ui/AppBarHeader";
 import UserContext from "./contexts/UserContext";
 import PrivateRoute from "./routers/PrivateRoute";
+import UploadPosterWizard from "./ui/UploadPosterWizard";
 
 const useStyles = makeStyles(() => ({
 	bgImage: {
@@ -138,6 +139,19 @@ function App() {
 								</CSSTransition>
 							)}
 						</PrivateRoute>
+						<PrivateRoute exact path="/create/poster/upload">
+							{({ match }) => (
+								<CSSTransition
+									in={match != null}
+									timeout={300}
+									classNames="page"
+									unmountOnExit
+								>
+									<UploadPosterWizard />
+								</CSSTransition>
+							)}
+						</PrivateRoute>
+
 						<PrivateRoute exact path="/create/poster/custom">
 							{({ match }) => (
 								<CSSTransition
