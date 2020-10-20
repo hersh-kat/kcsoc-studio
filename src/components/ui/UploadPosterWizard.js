@@ -8,6 +8,7 @@ import GenerateCustomPosterButton from "./GenerateCustomPosterButton";
 import TitleInput from "./TitleInput";
 import StepChangeButtons from "./StepChangeButtons";
 import { Grid } from "@material-ui/core";
+import Dropzone from "./Dropzone";
 
 export default function UploadPosterWizard() {
 	const [currentStep, setCurrentStep] = useState(1);
@@ -56,6 +57,8 @@ export default function UploadPosterWizard() {
 				childFactory={(child) => React.cloneElement(child)}
 				style={{ position: "relative", marginTop: "20px" }}
 			>
+				<Dropzone currentStep={currentStep} />
+
 				<TitleInput
 					currentStep={currentStep}
 					showOnStep={2}
