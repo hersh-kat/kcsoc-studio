@@ -68,7 +68,6 @@ export default function TitleInput({
 					<Card className={classes.titleCard}>
 						<CardContent>
 							<Typography variant="h2">
-								{" "}
 								{currentStep}. Enter the title of your event*
 							</Typography>
 						</CardContent>

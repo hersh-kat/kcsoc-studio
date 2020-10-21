@@ -24,10 +24,26 @@ const useStyles = makeStyles((theme) => ({
 	imageName: {
 		display: "flex",
 		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: "2rem",
+	},
+
+	icon: {
+		margin: "0 1rem",
+	},
+
+	errorMessage: {
+		color: "red",
 	},
 }));
 
-export default function DropzoneArea({ currentStep }) {
+export default function DropzoneArea({
+	currentStep,
+	setStep,
+	setImageData,
+	setImageName,
+}) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -58,6 +74,11 @@ export default function DropzoneArea({ currentStep }) {
 						onDropAccepted={(acceptedFiles) => {
 							setError(false);
 							setImage(acceptedFiles[0]);
+							setImageData(acceptedFiles[0]);
+							setImageName(acceptedFiles[0].name);
+							setTimeout(() => {
+								setStep(currentStep + 1);
+							}, 250);
 						}}
 						onDropRejected={() => {
 							setError(true);
@@ -81,17 +102,20 @@ export default function DropzoneArea({ currentStep }) {
 							</section>
 						)}
 					</Dropzone>
-					<Typography>
+					<Typography className={classes.errorMessage}>
 						{error && "Please upload a .jpeg, .jpg or a .png file"}
 					</Typography>
 
 					{image && (
 						<div className={classes.imageName}>
-							<FontAwesomeIcon
-								icon={faCheckSquare}
-								size="lg"
-								color="#05cd51"
-							/>
+							<div className={classes.icon}>
+								<FontAwesomeIcon
+									icon={faCheckSquare}
+									size="lg"
+									color="#05cd51"
+								/>
+							</div>
+
 							<Typography> {image.name}</Typography>
 						</div>
 					)}

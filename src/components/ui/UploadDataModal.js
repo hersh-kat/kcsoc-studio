@@ -1,12 +1,23 @@
 import React, { useState, useContext } from "react";
-import Modal from "react-modal";
-import moment from "moment";
 import axios from "axios";
+import Modal from "react-modal";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 import dateFormat from "dateformat";
 import { makeStyles } from "@material-ui/styles";
 import { Grid, Typography, Card, CardContent, Button } from "@material-ui/core";
 import Loader from "react-loader-spinner";
 import UserContext from "../contexts/UserContext";
+
+function arrayBufferToBase64(buffer) {
+	var binary = "";
+	var bytes = new Uint8Array(buffer);
+	var len = bytes.byteLength;
+	for (var i = 0; i < len; i++) {
+		binary += String.fromCharCode(bytes[i]);
+	}
+	return window.btoa(binary);
+}
 
 const useStyles = makeStyles((theme) => ({
 	modalCard: {
@@ -23,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
+	const history = useHistory();
 	const {
 		unformattedDate,
 		unformattedTime,
@@ -33,7 +45,18 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 		title,
 		speaker,
 		zoomUrl,
+		imageData,
+		setImageData,
+		imageName,
 	} = data;
+
+	(async function () {
+		if (imageData instanceof File) {
+			const arrayBuffer = await imageData.arrayBuffer();
+			setImageData(arrayBufferToBase64(arrayBuffer));
+		}
+	})();
+
 	const date = dateFormat(unformattedDate, "ddd dS mmm");
 	const time = dateFormat(unformattedTime, "h:MM TT");
 
@@ -72,16 +95,20 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 				facebookUrl,
 				instagramUrl: instaHandle,
 				zoomUrl,
+				imageData: imageData,
 			},
 			{
 				headers: { "x-auth-token": userData.token },
 			}
 		);
-		console.log(res.status);
+
 		if (res.status === 201) {
-			setTimeout(() => {
+			setTimeout(async () => {
 				setLoading(false);
 				setUploaded(true);
+				setTimeout(() => {
+					history.push("/create");
+				}, 1000);
 			}, 5000);
 		}
 	};
@@ -126,6 +153,11 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 						{zoomUrl && (
 							<Typography paragraph>
 								Zoom URL: {zoomUrl}
+							</Typography>
+						)}
+						{imageName && (
+							<Typography paragraph>
+								Image file: {imageName}
 							</Typography>
 						)}
 					</CardContent>

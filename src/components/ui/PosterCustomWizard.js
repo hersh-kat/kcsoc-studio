@@ -68,9 +68,9 @@ export default function PosterCustomWizard() {
 				<TitleInput
 					currentStep={currentStep}
 					showOnStep={2}
+					setStep={next}
 					title={title}
 					setTitle={setTitle}
-					setStep={next}
 					titleError={titleError}
 					setTitleError={setTitleError}
 					speaker={speaker}

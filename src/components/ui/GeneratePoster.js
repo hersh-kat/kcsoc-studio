@@ -97,8 +97,6 @@ export default function GeneratePoster(props) {
 		window.addEventListener("message", onMessage);
 	});
 
-	console.log(props.location.state);
-
 	function onMessage(e) {
 		//console.log("Message from Photopea: " + e.data);
 		//console.log(e.data);
