@@ -31,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
 		color: "green",
 		marginTop: "1rem",
 	},
+	loading: {
+		color: "black",
+		fontSize: "8px",
+		marginTop: "1rem",
+	},
+	error: {
+		color: "red",
+		marginTop: "1rem",
+	},
 }));
 
 export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
@@ -49,13 +58,6 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 		setImageData,
 		imageName,
 	} = data;
-
-	(async function () {
-		if (imageData instanceof File) {
-			const arrayBuffer = await imageData.arrayBuffer();
-			setImageData(arrayBufferToBase64(arrayBuffer));
-		}
-	})();
 
 	const date = dateFormat(unformattedDate, "ddd dS mmm");
 	const time = dateFormat(unformattedTime, "h:MM TT");
@@ -80,14 +82,19 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 
 	const [loading, setLoading] = useState(false);
 	const [uploaded, setUploaded] = useState(false);
+	const [error, setError] = useState(false);
 
 	const { userData } = useContext(UserContext);
 
 	const upload = async () => {
 		setLoading(true);
-		const res = await axios.post(
-			"http://localhost:5000/events/create",
-			{
+		setError(false);
+		setUploaded(false);
+
+		const fd = new FormData();
+		fd.append(
+			"jsonData",
+			JSON.stringify({
 				name: title,
 				speaker,
 				location: `${locationLine2}, ${locationLine1}`,
@@ -95,22 +102,29 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 				facebookUrl,
 				instagramUrl: instaHandle,
 				zoomUrl,
-				imageData: imageData,
-			},
-			{
-				headers: { "x-auth-token": userData.token },
-			}
+			})
 		);
 
-		if (res.status === 201) {
-			setTimeout(async () => {
+		fd.append("file", imageData);
+
+		fetch("http://localhost:5000/events/create", {
+			method: "POST",
+			headers: {
+				"x-auth-token": userData.token,
+			},
+			body: fd,
+		}).then((res) => {
+			if (res.status === 201) {
 				setLoading(false);
 				setUploaded(true);
 				setTimeout(() => {
 					history.push("/create");
-				}, 1000);
-			}, 5000);
-		}
+				}, 500);
+			} else {
+				setLoading(false);
+				setError(true);
+			}
+		});
 	};
 
 	return (
@@ -222,11 +236,19 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 							height={80}
 							width={80}
 						/>
+						<Typography paragraph className={classes.loading}>
+							This may take a while...
+						</Typography>
 					</div>
 				)}
 				{uploaded && (
 					<Typography paragraph className={classes.uploaded}>
 						Uploaded!
+					</Typography>
+				)}
+				{error && (
+					<Typography paragraph className={classes.error}>
+						Oops! There was an error!
 					</Typography>
 				)}
 			</Grid>
