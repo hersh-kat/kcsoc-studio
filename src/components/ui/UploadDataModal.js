@@ -134,7 +134,8 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 				setModalOpen(false);
 			}}
 			style={customStyles}
-			contentLabel="Example Modal"
+			contentLabel="Upload Modal"
+			shouldCloseOnOverlayClick={!loading}
 		>
 			<Grid item>
 				<Card className={classes.modalCard}>
