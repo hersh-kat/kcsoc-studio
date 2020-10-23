@@ -101,7 +101,7 @@ export default function GeneratePoster(props) {
 		//console.log("Message from Photopea: " + e.data);
 		//console.log(e.data);
 		if (e.data instanceof ArrayBuffer) {
-			setImageData(arrayBufferToBase64(e.data));
+			setImageData(e.data);
 		}
 		if (e.data === "done") {
 			n++;
@@ -128,7 +128,7 @@ export default function GeneratePoster(props) {
 					<UploadDataModal
 						modalOpen={modalOpen}
 						setModalOpen={setModalOpen}
-						data={props.location.state}
+						data={{ ...props.location.state, imageData }}
 					/>
 					<Grid
 						container
@@ -152,7 +152,8 @@ export default function GeneratePoster(props) {
 									<img
 										alt="Generated KCSOC Poster"
 										src={
-											"data:image/jpg;base64," + imageData
+											"data:image/jpg;base64," +
+											arrayBufferToBase64(imageData)
 										}
 										className={classes.poster}
 									/>

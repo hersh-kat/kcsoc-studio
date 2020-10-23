@@ -1,23 +1,11 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import Modal from "react-modal";
-import { useHistory } from "react-router-dom";
 import moment from "moment";
 import dateFormat from "dateformat";
 import { makeStyles } from "@material-ui/styles";
 import { Grid, Typography, Card, CardContent, Button } from "@material-ui/core";
 import Loader from "react-loader-spinner";
 import UserContext from "../contexts/UserContext";
-
-function arrayBufferToBase64(buffer) {
-	var binary = "";
-	var bytes = new Uint8Array(buffer);
-	var len = bytes.byteLength;
-	for (var i = 0; i < len; i++) {
-		binary += String.fromCharCode(bytes[i]);
-	}
-	return window.btoa(binary);
-}
 
 const useStyles = makeStyles((theme) => ({
 	modalCard: {
@@ -43,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
-	const history = useHistory();
 	const {
 		unformattedDate,
 		unformattedTime,
@@ -55,9 +42,10 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 		speaker,
 		zoomUrl,
 		imageData,
-		setImageData,
 		imageName,
 	} = data;
+
+	console.log(new Blob([imageData], { type: "image/jpg" }));
 
 	const date = dateFormat(unformattedDate, "ddd dS mmm");
 	const time = dateFormat(unformattedTime, "h:MM TT");
@@ -104,8 +92,11 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 				zoomUrl,
 			})
 		);
-
-		fd.append("file", imageData);
+		if (imageData instanceof ArrayBuffer) {
+			fd.append("file", new Blob([imageData], { type: "image/jpg" }));
+		} else if (imageData instanceof File) {
+			fd.append("file", imageData);
+		}
 
 		fetch("http://localhost:5000/events/create", {
 			method: "POST",
@@ -117,9 +108,6 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 			if (res.status === 201) {
 				setLoading(false);
 				setUploaded(true);
-				setTimeout(() => {
-					history.push("/create");
-				}, 500);
 			} else {
 				setLoading(false);
 				setError(true);

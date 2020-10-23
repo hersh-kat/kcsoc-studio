@@ -109,45 +109,49 @@ export default function TitleInput({
 						</CardContent>
 					</Card>
 				</Grid>
-				<Grid item>
-					<Card className={classes.titleCard}>
-						<CardContent>
-							<Typography variant="h2">
-								Enter the speaker's name.
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
-				<Grid item>
-					<Card className={classes.inputCard}>
-						<CardContent>
-							<TextField
-								fullWidth
-								color="secondary"
-								id="speaker"
-								InputLabelProps={{
-									shrink: true,
-								}}
-								label="Speaker"
-								placeholder="Speaker name"
-								value={speaker}
-								onChange={(event) => {
-									setSpeaker(event.target.value);
-								}}
-								onKeyDown={(event) => {
-									if (event.keyCode === 13) {
-										if (title.length === 0)
-											setTitleError(true);
-										if (title.length === 0)
-											setTitleError(true);
-										if (title.length > 0)
-											setStep(currentStep + 1);
-									}
-								}}
-							/>
-						</CardContent>
-					</Card>
-				</Grid>
+				{speaker && (
+					<React.Fragment>
+						<Grid item>
+							<Card className={classes.titleCard}>
+								<CardContent>
+									<Typography variant="h2">
+										Enter the speaker's name.
+									</Typography>
+								</CardContent>
+							</Card>
+						</Grid>
+						<Grid item>
+							<Card className={classes.inputCard}>
+								<CardContent>
+									<TextField
+										fullWidth
+										color="secondary"
+										id="speaker"
+										InputLabelProps={{
+											shrink: true,
+										}}
+										label="Speaker"
+										placeholder="Speaker name"
+										value={speaker}
+										onChange={(event) => {
+											setSpeaker(event.target.value);
+										}}
+										onKeyDown={(event) => {
+											if (event.keyCode === 13) {
+												if (title.length === 0)
+													setTitleError(true);
+												if (title.length === 0)
+													setTitleError(true);
+												if (title.length > 0)
+													setStep(currentStep + 1);
+											}
+										}}
+									/>
+								</CardContent>
+							</Card>
+						</Grid>
+					</React.Fragment>
+				)}
 				<CSSTransition
 					timeout={400}
 					classNames={"flipX"}

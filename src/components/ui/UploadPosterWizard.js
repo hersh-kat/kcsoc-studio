@@ -4,7 +4,6 @@ import { TransitionGroup } from "react-transition-group";
 import PosterTemplateSocialMedia from "./SocialMediaInput";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
-import GenerateCustomPosterButton from "./GenerateCustomPosterButton";
 import TitleInput from "./TitleInput";
 import StepChangeButtons from "./StepChangeButtons";
 import { Grid, Button } from "@material-ui/core";

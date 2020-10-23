@@ -3,13 +3,7 @@ import Dropzone from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { makeStyles } from "@material-ui/styles";
-import {
-	Grid,
-	Typography,
-	CardContent,
-	useTheme,
-	useMediaQuery,
-} from "@material-ui/core";
+import { Grid, Typography, useTheme, useMediaQuery } from "@material-ui/core";
 import { CSSTransition } from "react-transition-group";
 
 const useStyles = makeStyles((theme) => ({
