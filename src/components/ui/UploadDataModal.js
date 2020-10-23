@@ -45,8 +45,6 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 		imageName,
 	} = data;
 
-	console.log(new Blob([imageData], { type: "image/jpg" }));
-
 	const date = dateFormat(unformattedDate, "ddd dS mmm");
 	const time = dateFormat(unformattedTime, "h:MM TT");
 
@@ -98,7 +96,7 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 			fd.append("file", imageData);
 		}
 
-		fetch("http://localhost:5000/events/create", {
+		fetch(`${process.env.REACT_APP_KCSOC_SERVER_URL}/events/create`, {
 			method: "POST",
 			headers: {
 				"x-auth-token": userData.token,
