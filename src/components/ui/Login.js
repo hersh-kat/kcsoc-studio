@@ -30,7 +30,6 @@ export default function Login(props) {
 	const [submitDisabled, setSubmitDisabled] = useState(false);
 	const [loginError, setLoginError] = useState("");
 
-
 	const submit = async (e) => {
 		e.preventDefault();
 		if (!username && !password) {
@@ -67,7 +66,7 @@ export default function Login(props) {
 		setSubmitDisabled(true);
 		try {
 			const loginRes = await axios.post(
-				"http://localhost:5000/users/login",
+				`${process.env.REACT_APP_KCSOC_SERVER_URL}/users/login`,
 				{
 					username,
 					password,
