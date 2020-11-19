@@ -66,7 +66,7 @@ export default function Login(props) {
 		setSubmitDisabled(true);
 		try {
 			const loginRes = await axios.post(
-				`${process.env.REACT_APP_KCSOC_SERVER_URL}/users/login`,
+				`${process.env.REACT_APP_KCSOC_SERVER_URL}users/login`,
 				{
 					username,
 					password,

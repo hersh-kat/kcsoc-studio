@@ -96,7 +96,7 @@ export default function UploadDataModal({ modalOpen, setModalOpen, data }) {
 			fd.append("file", imageData);
 		}
 
-		fetch(`${process.env.REACT_APP_KCSOC_SERVER_URL}/events/create`, {
+		fetch(`${process.env.REACT_APP_KCSOC_SERVER_URL}events/create`, {
 			method: "POST",
 			headers: {
 				"x-auth-token": userData.token,

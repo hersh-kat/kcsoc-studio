@@ -52,7 +52,7 @@ function App() {
 				token = "";
 			}
 			const tokenRes = await axios.post(
-				`${process.env.REACT_APP_KCSOC_SERVER_URL}/users/tokenIsValid`,
+				`${process.env.REACT_APP_KCSOC_SERVER_URL}users/tokenIsValid`,
 				null,
 				{ headers: { "x-auth-token": token } }
 			);
