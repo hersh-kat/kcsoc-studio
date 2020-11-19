@@ -11,100 +11,100 @@ import TagsInput from "./TagsInput";
 
 /*State from all the steps will be stored in here*/
 export default function PosterTemplateWizard() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [tags, setTags] = useState([]);
-  const [tagsError, setTagsError] = useState(false);
-  const [locationLine1, setLocationLine1] = useState("");
-  const [locationLine2, setLocationLine2] = useState("");
-  const [locationLine1Error, setLocationLine1Error] = useState(false);
-  const [locationLine2Error, setLocationLine2Error] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
-  const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState(false);
+	const [currentStep, setCurrentStep] = useState(1);
+	const [tags, setTags] = useState([]);
+	const [tagsError, setTagsError] = useState(false);
+	const [locationLine1, setLocationLine1] = useState("");
+	const [locationLine2, setLocationLine2] = useState("");
+	const [locationLine1Error, setLocationLine1Error] = useState(false);
+	const [locationLine2Error, setLocationLine2Error] = useState(false);
+	const [date, setDate] = useState(new Date());
+	const [time, setTime] = useState(new Date());
+	const [title, setTitle] = useState("");
+	const [titleError, setTitleError] = useState(false);
 
-  const next = () => {
-    setCurrentStep(currentStep + 1);
-  };
-  const prev = () => {
-    setCurrentStep(currentStep - 1);
-  };
+	const next = () => {
+		setCurrentStep(currentStep + 1);
+	};
+	const prev = () => {
+		setCurrentStep(currentStep - 1);
+	};
 
-  return (
-    <React.Fragment>
-      <Grid
-        container
-        direction="column"
-        spacing={4}
-        style={{
-          paddingTop: "20vh",
-          position: "absolute",
-        }}
-        justify="center"
-      >
-        <StepChangeButtons
-          next={next}
-          prev={prev}
-          currentStep={currentStep}
-          endAt={4}
-        />
-        <TransitionGroup
-          childFactory={(child) => React.cloneElement(child)}
-          style={{ position: "relative", marginTop: "20px" }}
-        >
-          <TagsInput
-            currentStep={currentStep}
-            showOnStep={1}
-            setTags={setTags}
-            setStep={next}
-            tags={tags}
-            tagsError={tagsError}
-            setTagsError={setTagsError}
-          />
-          <TitleInput
-            currentStep={currentStep}
-            showOnStep={2}
-            title={title}
-            setTitle={setTitle}
-            setStep={next}
-            titleError={titleError}
-            setTitleError={setTitleError}
-          />
-          <PosterTemplateLocation
-            currentStep={currentStep}
-            showOnStep={3}
-            setLocationLine1={setLocationLine1}
-            setLocationLine2={setLocationLine2}
-            setStep={next}
-            locationLine1={locationLine1}
-            locationLine2={locationLine2}
-            locationLine1Error={locationLine1Error}
-            setLocationLine1Error={setLocationLine1Error}
-            locationLine2Error={locationLine2Error}
-            setLocationLine2Error={setLocationLine2Error}
-          />
-          <DateTimeInput
-            currentStep={currentStep}
-            showOnStep={4}
-            setDate={setDate}
-            setTime={setTime}
-            generatePosterComponent={
-              <GenerateVideoButton
-                date={date} //dateFormat(date, "ddd dS mmm")
-                time={time} //dateFormat(time, "h:MM TT")
-                tags={tags}
-                title={title}
-                setTagsError={setTagsError}
-                locationLine1={locationLine1}
-                locationLine2={locationLine2}
-                setLocationLine1Error={setLocationLine1Error}
-                setLocationLine2Error={setLocationLine2Error}
-                setStep={setCurrentStep}
-              />
-            }
-          />
-        </TransitionGroup>
-      </Grid>
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Grid
+				container
+				direction="column"
+				spacing={4}
+				style={{
+					paddingTop: "20vh",
+					position: "absolute",
+				}}
+				justify="center"
+			>
+				<StepChangeButtons
+					next={next}
+					prev={prev}
+					currentStep={currentStep}
+					endAt={4}
+				/>
+				<TransitionGroup
+					childFactory={(child) => React.cloneElement(child)}
+					style={{ position: "relative", marginTop: "20px" }}
+				>
+					<TagsInput
+						currentStep={currentStep}
+						showOnStep={1}
+						setTags={setTags}
+						setStep={next}
+						tags={tags}
+						tagsError={tagsError}
+						setTagsError={setTagsError}
+					/>
+					<TitleInput
+						currentStep={currentStep}
+						showOnStep={2}
+						title={title}
+						setTitle={setTitle}
+						setStep={next}
+						titleError={titleError}
+						setTitleError={setTitleError}
+					/>
+					<PosterTemplateLocation
+						currentStep={currentStep}
+						showOnStep={3}
+						setLocationLine1={setLocationLine1}
+						setLocationLine2={setLocationLine2}
+						setStep={next}
+						locationLine1={locationLine1}
+						locationLine2={locationLine2}
+						locationLine1Error={locationLine1Error}
+						setLocationLine1Error={setLocationLine1Error}
+						locationLine2Error={locationLine2Error}
+						setLocationLine2Error={setLocationLine2Error}
+					/>
+					<DateTimeInput
+						currentStep={currentStep}
+						showOnStep={4}
+						setDate={setDate}
+						setTime={setTime}
+						generatePosterComponent={
+							<GenerateVideoButton
+								date={date} //dateFormat(date, "ddd dS mmm")
+								time={time} //dateFormat(time, "h:MM TT")
+								tags={tags}
+								title={title}
+								setTagsError={setTagsError}
+								locationLine1={locationLine1}
+								locationLine2={locationLine2}
+								setLocationLine1Error={setLocationLine1Error}
+								setLocationLine2Error={setLocationLine2Error}
+								setStep={setCurrentStep}
+							/>
+						}
+					/>
+				</TransitionGroup>
+			</Grid>
+		</React.Fragment>
+	);
 }

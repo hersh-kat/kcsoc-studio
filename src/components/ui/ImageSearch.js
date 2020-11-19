@@ -122,7 +122,7 @@ export default function ImageSearch({
         <Card className={classes.titleCard}>
           <CardContent>
             <Typography variant="h2">
-              1. Search for a background image for your poster
+              1. Search for a background image for your poster*
             </Typography>
           </CardContent>
         </Card>
