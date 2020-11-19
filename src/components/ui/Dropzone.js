@@ -61,6 +61,7 @@ export default function DropzoneArea({
 				style={{
 					maxWidth: "500px",
 					marginTop: "5rem",
+					position: "absolute",
 				}}
 			>
 				<Grid item>

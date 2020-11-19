@@ -120,7 +120,7 @@ export default function PosterTemplateWizard() {
 								title={title}
 								speaker={speaker}
 								instaHandle={instaHandle}
-								facebookUrl={facebookUrl}
+								facebookHandle={facebookUrl}
 								zoomUrl={zoomUrl}
 								locationLine1={locationLine1}
 								locationLine2={locationLine2}
