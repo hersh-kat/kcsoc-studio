@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import PosterTemplateStep1 from "./PosterTemplateStep1";
-import { Grid } from "@material-ui/core";
+import React from "react";
+import { useState } from "react";
+import { TransitionGroup } from "react-transition-group";
 import PosterTemplateSocialMedia from "./SocialMediaInput";
 import PosterTemplateLocation from "./LocationInput";
 import DateTimeInput from "./DateTimeInput";
-import StepChangeButtons from "./StepChangeButtons";
-import { TransitionGroup } from "react-transition-group";
-import "../../css/animations.css";
-import GeneratePosterButton from "./GeneratePosterButton";
 import TitleInput from "./TitleInput";
+import StepChangeButtons from "./StepChangeButtons";
+import { Grid, Button } from "@material-ui/core";
+import Dropzone from "./Dropzone";
+import UploadDataModal from "./UploadDataModal";
 
-/*State from all the steps will be stored in here*/
-export default function PosterTemplateWizard() {
+export default function UploadPosterWizard() {
 	const [currentStep, setCurrentStep] = useState(1);
-	const [url, setURL] = useState("");
-	const [urlError, setURLError] = useState(false);
 	const [title, setTitle] = useState("");
 	const [titleError, setTitleError] = useState(false);
 	const [instaHandle, setInstaHandle] = useState("");
@@ -29,6 +26,9 @@ export default function PosterTemplateWizard() {
 	const [time, setTime] = useState(new Date());
 	const [speaker, setSpeaker] = useState("");
 	const [zoomUrl, setZoomUrl] = useState("");
+	const [imageData, setImageData] = useState({});
+	const [modalOpen, setModalOpen] = React.useState(false);
+	const [imageName, setImageName] = useState("");
 
 	const next = () => {
 		setCurrentStep(currentStep + 1);
@@ -36,17 +36,36 @@ export default function PosterTemplateWizard() {
 	const prev = () => {
 		setCurrentStep(currentStep - 1);
 	};
+
 	return (
 		<React.Fragment>
+			<UploadDataModal
+				modalOpen={modalOpen}
+				setModalOpen={setModalOpen}
+				data={{
+					unformattedDate: date,
+					unformattedTime: time,
+					title,
+					instaHandle,
+					facebookUrl,
+					zoomUrl,
+					speaker,
+					locationLine1,
+					locationLine2,
+					imageData,
+					setImageData,
+					imageName,
+				}}
+			/>
 			<Grid
 				container
-				spacing={4}
 				direction="column"
 				style={{
-					paddingTop: "20vh",
 					position: "absolute",
+					paddingTop: "20vh",
 				}}
 				justify="center"
+				spacing={0}
 			>
 				<StepChangeButtons
 					next={next}
@@ -58,14 +77,13 @@ export default function PosterTemplateWizard() {
 					childFactory={(child) => React.cloneElement(child)}
 					style={{ position: "relative", marginTop: "20px" }}
 				>
-					<PosterTemplateStep1
+					<Dropzone
 						currentStep={currentStep}
-						showOnStep={1}
-						setURL={setURL}
 						setStep={next}
-						urlError={urlError}
-						setURLError={setURLError}
+						setImageData={setImageData}
+						setImageName={setImageName}
 					/>
+
 					<TitleInput
 						currentStep={currentStep}
 						showOnStep={2}
@@ -110,27 +128,16 @@ export default function PosterTemplateWizard() {
 						showOnStep={5}
 						setDate={setDate}
 						setTime={setTime}
-						speaker={speaker}
-						setSpeaker={setSpeaker}
 						generatePosterComponent={
-							<GeneratePosterButton
-								date={date} //dateFormat(date, "ddd dS mmm")
-								time={time} //dateFormat(time, "h:MM TT")
-								url={url}
-								title={title}
-								speaker={speaker}
-								instaHandle={instaHandle}
-								facebookHandle={facebookUrl}
-								zoomUrl={zoomUrl}
-								locationLine1={locationLine1}
-								locationLine2={locationLine2}
-								setLocationLine1Error={setLocationLine1Error}
-								setLocationLine2Error={setLocationLine2Error}
-								setInstagramInputError={setInstagramInputError}
-								setFacebookInputError={setFacebookInputError}
-								setURLError={setURLError}
-								setStep={setCurrentStep}
-							/>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={() => {
+									setModalOpen(true);
+								}}
+							>
+								Upload to KCSOC database
+							</Button>
 						}
 					/>
 				</TransitionGroup>
