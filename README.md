@@ -15,6 +15,24 @@ Live site at: studio.kcsoc.com
 # Table of Contents 📚
 
 <!--ts-->
+   * [Introduction to the README Template](#introduction-to-the-readme-template)
+   * [KCSoc Studio](#kcsoc-studio)
+   * [Table of Contents <g-emoji class="g-emoji" alias="books" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4da.png">📚</g-emoji>](#table-of-contents-)
+   * [Description and Purpose <g-emoji class="g-emoji" alias="memo" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4dd.png">📝</g-emoji>](#description-and-purpose-)
+      * [Screenshots](#screenshots)
+   * [Intended Audience <g-emoji class="g-emoji" alias="performing_arts" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3ad.png">🎭</g-emoji>](#intended-audience-)
+   * [People of Contact <g-emoji class="g-emoji" alias="bust_in_silhouette" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f464.png">👤</g-emoji>](#people-of-contact-)
+   * [Technologies, Dependencies, and Notable Libraries <g-emoji class="g-emoji" alias="space_invader" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f47e.png">👾</g-emoji>](#technologies-dependencies-and-notable-libraries-)
+   * [How to Run Project <g-emoji class="g-emoji" alias="runner" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3c3.png">🏃</g-emoji>](#how-to-run-project-)
+      * [Building from source](#building-from-source)
+         * [npm start](#npm-start)
+         * [npm run build](#npm-run-build)
+   * [Admin Credentials <g-emoji class="g-emoji" alias="business_suit_levitating" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f574.png">🕴</g-emoji>](#admin-credentials-)
+   * [Email for Project <g-emoji class="g-emoji" alias="e-mail" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4e7.png">📧</g-emoji>](#email-for-project-)
+   * [Deployment &amp; Costs <g-emoji class="g-emoji" alias="moneybag" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4b0.png">💰</g-emoji>](#deployment--costs-)
+   * [Backups <g-emoji class="g-emoji" alias="fire_extinguisher" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9ef.png">🧯</g-emoji>](#backups-)
+
+<!-- Added by: runner, at: Sun Jan 10 22:53:39 UTC 2021 -->
 
 <!--te-->
 
