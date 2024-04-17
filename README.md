@@ -1,6 +1,7 @@
 <img src="https://imgur.com/dziDzkS.png" alt="KCSOC Studio Logo" width="400px" />
 
 ## Introduction
+
 Welcome to the official repository for KCSOC Studio.
 
 This revolutionary tool will help you make professional, high-quality posters and trailers for your local KCSOC without you needing to have any photo/video editing skills whatsover! New features are planned to be added soon. Feel free to report any bugs/issues or create pull requests.
@@ -13,14 +14,15 @@ This project was built using **ReactJS** & **Material-UI**, and uses the followi
 - **Shotstack API** to edit and render videos
 
 ## Website Link
+
 Check out the live version of KCSOC Studio at:
 
-https://kcsocstudio.hershkat.com 
+[https://kcsocstudio.hershkat.dev ](https://kcsocstudio.hershkat.dev)
 
 ## Screenshots
 
-| Landing                              | Image Search                         | Final Creation.                      |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| Landing                            | Image Search                       | Final Creation.                    |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | ![](https://imgur.com/QZkXRLQ.png) | ![](https://imgur.com/3JjZhy3.png) | ![](https://imgur.com/G76OeSp.png) |
 
 ## Building from source
