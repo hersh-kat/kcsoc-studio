@@ -27,7 +27,7 @@
     "@testing-library/user-event": "^7.2.1",
     "date-fns": "^2.14.0",
     "dateformat": "^3.0.3",
-    "dropbox": "^5.1.0",
+    "dropbox": "^10.34.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
     "jsonp": "^0.2.1",
